@@ -6,7 +6,7 @@ import React from 'react';
 export interface ContainerProps {
   children: React.ReactNode;
   className?: string;
-  maxWidth?: 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '7xl';
+  maxWidth?: 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl' | '6xl' | '7xl';
 }
 
 export const Container: React.FC<ContainerProps> = ({
@@ -20,6 +20,10 @@ export const Container: React.FC<ContainerProps> = ({
     lg: 'max-w-lg',
     xl: 'max-w-xl',
     '2xl': 'max-w-2xl',
+    '3xl': 'max-w-3xl',
+    '4xl': 'max-w-4xl',
+    '5xl': 'max-w-5xl',
+    '6xl': 'max-w-6xl',
     '7xl': 'max-w-7xl',
   };
 
@@ -44,7 +48,7 @@ export const Section: React.FC<SectionProps> = ({ children, className = '', id }
 );
 
 // Card Component
-export interface CardProps {
+export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
   className?: string;
   hover?: boolean;
@@ -56,12 +60,17 @@ export const Card: React.FC<CardProps> = ({
   className = '',
   hover = true,
   glow = false,
+  onClick,
+  ...props
 }) => (
   <div
+    onClick={onClick}
+    {...props}
     className={`
-      bg-white rounded-xl border border-neutral-200 p-6
-      ${hover ? 'card-shadow hover:border-primary-300' : 'card-shadow'}
+      bg-white/90 backdrop-blur-xl rounded-2xl border border-white/20 p-6
+      ${hover ? 'shadow-lg hover:shadow-2xl hover:border-primary-200/50' : 'shadow-md'}
       ${glow ? 'glow-effect' : ''}
+      ${onClick ? 'cursor-pointer active:scale-[0.98] transition-all duration-300' : ''}
       ${className}
     `}
   >
@@ -131,11 +140,11 @@ export const Button: React.FC<ButtonProps> = ({
   ...props
 }) => {
   const variantMap = {
-    primary: 'bg-primary-600 hover:bg-primary-700 text-white shadow-md hover:shadow-lg',
-    secondary: 'bg-secondary-600 hover:bg-secondary-700 text-white shadow-md hover:shadow-lg',
-    danger: 'bg-danger-600 hover:bg-danger-700 text-white shadow-md hover:shadow-lg',
-    success: 'bg-success-600 hover:bg-success-700 text-white shadow-md hover:shadow-lg',
-    outline: 'border-2 border-primary-600 text-primary-600 hover:bg-primary-50',
+    primary: 'bg-primary-600 hover:bg-primary-700 text-white shadow-lg hover:shadow-primary-500/30 hover:-translate-y-0.5',
+    secondary: 'bg-secondary-600 hover:bg-secondary-700 text-white shadow-lg hover:shadow-secondary-500/30 hover:-translate-y-0.5',
+    danger: 'bg-danger-600 hover:bg-danger-700 text-white shadow-lg hover:shadow-danger-500/30 hover:-translate-y-0.5',
+    success: 'bg-success-600 hover:bg-success-700 text-white shadow-lg hover:shadow-success-500/30 hover:-translate-y-0.5',
+    outline: 'border-2 border-primary-600 text-primary-600 hover:bg-primary-50 hover:border-primary-700',
   };
 
   const sizeMap = {
@@ -352,9 +361,9 @@ export const Grid: React.FC<GridProps> = ({
   const colsMap = {
     1: 'grid-cols-1',
     2: 'grid-cols-1 sm:grid-cols-2',
-    3: 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3',
-    4: 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-4',
-    6: 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6',
+    3: 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3',
+    4: 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4',
+    6: 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6',
   };
 
   const gapMap = {

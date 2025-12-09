@@ -3,28 +3,37 @@
 /* ========== GLOBAL STYLES ========== */
 
 :root {
-  --primary-color: #b8413d; /* burgundy */
-  --primary-dark: #7a2727;
-  --primary-rgb: 184,65,61;
-  --secondary-color: #e6a218; /* antique gold */
-  --secondary-rgb: 230,162,24;
-  --success-color: #4fb84a;
-  --danger-color: #ef5757;
-  --warning-color: #e6a218;
-  --neutral-50: #fbf7ef; /* parchment */
-  --neutral-900: #2a1b12;
-  --neutral-900-rgb: 42,27,18;
-  --transition-smooth: 0.35s ease-in-out;
+  /* Modern Vibrant Palette (Indigo & Rose) */
+  --primary-color: #4f46e5;
+  /* Indigo-600 */
+  --primary-dark: #4338ca;
+  /* Indigo-700 */
+  --primary-rgb: 79, 70, 229;
 
-  /* Short-named classical palette (clrs) */
-  --clr-parchment: #fbf7ef;
-  --clr-burgundy: #b8413d;
-  --clr-burgundy-dark: #7a2727;
-  --clr-gold: #e6a218;
-  --clr-gold-dark: #b57b12;
-  --clr-sepia: #8a6f45;
-  --clr-ink: #2a1b12;
-  --clr-olive: #4f7a2b;
+  --secondary-color: #e11d48;
+  /* Rose-600 */
+  --secondary-rgb: 225, 29, 72;
+
+  --success-color: #10b981;
+  /* Emerald-500 */
+  --danger-color: #ef4444;
+  /* Red-500 */
+  --warning-color: #f59e0b;
+  /* Amber-500 */
+
+  --neutral-50: #f8fafc;
+  /* Slate-50 */
+  --neutral-100: #f1f5f9;
+  /* Slate-100 */
+  --neutral-200: #e2e8f0;
+  /* Slate-200 */
+  --neutral-800: #1e293b;
+  /* Slate-800 */
+  --neutral-900: #0f172a;
+  /* Slate-900 */
+  --neutral-900-rgb: 15, 23, 42;
+
+  --transition-smooth: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 * {
@@ -33,7 +42,7 @@
 
 body {
   @apply bg-neutral-50 text-neutral-900;
-  font-family: 'Garamond', 'Georgia', 'serif';
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -83,6 +92,7 @@ html {
     opacity: 0;
     transform: translateY(10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -94,6 +104,7 @@ html {
     opacity: 0;
     transform: translateY(-20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -105,6 +116,7 @@ html {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -112,9 +124,12 @@ html {
 }
 
 @keyframes pulse-glow {
-  0%, 100% {
+
+  0%,
+  100% {
     box-shadow: 0 0 0 0 rgba(var(--primary-rgb), 0.7);
   }
+
   50% {
     box-shadow: 0 0 0 10px rgba(var(--primary-rgb), 0);
   }
@@ -124,9 +139,11 @@ html {
   0% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
+
   100% {
     background-position: 0% 50%;
   }
@@ -178,13 +195,13 @@ html {
 }
 
 .card-shadow {
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 
-              0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 .card-shadow:hover {
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 
-              0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
 /* ========== BUTTON STYLES ========== */
@@ -199,11 +216,15 @@ button:disabled {
 
 /* ========== INPUT STYLES ========== */
 
-input, textarea, select {
+input,
+textarea,
+select {
   @apply transition-all duration-300;
 }
 
-input:focus, textarea:focus, select:focus {
+input:focus,
+textarea:focus,
+select:focus {
   @apply ring-2 ring-offset-0;
   ring-color: var(--primary-color);
 }
@@ -213,16 +234,68 @@ input:focus, textarea:focus, select:focus {
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(10px);
   }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 .animate-fadeIn {
-  animation: fadeIn 0.3s ease-in-out;
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-fade-in-scale {
+  animation: fadeInScale 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Staggered animation delays */
+.delay-100 {
+  animation-delay: 100ms;
+}
+
+.delay-200 {
+  animation-delay: 200ms;
+}
+
+.delay-300 {
+  animation-delay: 300ms;
+}
+
+.delay-400 {
+  animation-delay: 400ms;
+}
+
+.delay-500 {
+  animation-delay: 500ms;
 }
 
 /* ========== RESPONSIVE IMPROVEMENTS ========== */
@@ -231,15 +304,15 @@ input:focus, textarea:focus, select:focus {
   body {
     font-size: 15px;
   }
-  
+
   h1 {
     @apply text-2xl;
   }
-  
+
   h2 {
     @apply text-xl;
   }
-  
+
   h3 {
     @apply text-lg;
   }
@@ -251,7 +324,7 @@ input:focus, textarea:focus, select:focus {
   @page {
     margin: 0.5cm;
   }
-  
+
   body {
     @apply bg-white;
   }

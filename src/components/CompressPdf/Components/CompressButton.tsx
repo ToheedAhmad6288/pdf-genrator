@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { PDFDocument } from "pdf-lib";
+import { Button } from "../../UI";
 
 interface CompressButtonProps {
   file: File | null;
@@ -52,17 +53,14 @@ const CompressButton: React.FC<CompressButtonProps> = ({ file }) => {
         </select>
       </div>
 
-      <button
+      <Button
         disabled={!file}
         onClick={handleCompress}
-        className={`w-full py-3 px-4 rounded-lg font-semibold text-white transition ${
-          file
-            ? "bg-primary-600 hover:bg-primary-700 cursor-pointer"
-            : "bg-neutral-400 cursor-not-allowed"
-        }`}
+        fullWidth
+        className={file ? "bg-gradient-to-br from-pink-500 to-rose-600 hover:from-pink-600 hover:to-rose-700 shadow-pink-200" : ""}
       >
         {file ? "Compress & Download PDF" : "Select a PDF file first"}
-      </button>
+      </Button>
 
       {file && (
         <div className="mt-4 p-4 bg-neutral-50 rounded-lg border border-neutral-200">

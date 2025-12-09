@@ -61,7 +61,7 @@ const Comparison: React.FC<ComparisonProps> = ({
                 <button
                   onClick={() => onRunOcr("both")}
                   disabled={ocrLoading}
-                  className="ml-4 px-3 py-1 bg-red-600 text-white rounded"
+                  className="ml-4 px-4 py-1.5 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white rounded-lg shadow-md transition-all"
                 >
                   Retry OCR
                 </button>
@@ -89,7 +89,7 @@ const Comparison: React.FC<ComparisonProps> = ({
                   <button
                     onClick={() => onRunOcr("old")}
                     disabled={ocrLoading}
-                    className="mt-2 px-3 py-1 bg-indigo-600 text-white rounded"
+                    className="mt-4 px-4 py-2 bg-gradient-to-br from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white rounded-lg shadow-indigo-200 shadow-lg transition-all"
                   >
                     {ocrLoading ? "Running OCR..." : "Run OCR on Old PDF"}
                   </button>
@@ -116,7 +116,7 @@ const Comparison: React.FC<ComparisonProps> = ({
                   <button
                     onClick={() => onRunOcr("new")}
                     disabled={ocrLoading}
-                    className="mt-2 px-3 py-1 bg-indigo-600 text-white rounded"
+                    className="mt-4 px-4 py-2 bg-gradient-to-br from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white rounded-lg shadow-indigo-200 shadow-lg transition-all"
                   >
                     {ocrLoading ? "Running OCR..." : "Run OCR on New PDF"}
                   </button>
@@ -132,7 +132,7 @@ const Comparison: React.FC<ComparisonProps> = ({
             <button
               onClick={() => onRunOcr("both")}
               disabled={ocrLoading}
-              className="px-4 py-2 bg-indigo-600 text-white rounded"
+              className="px-6 py-2.5 bg-gradient-to-br from-fuchsia-500 to-pink-600 hover:from-fuchsia-600 hover:to-pink-700 text-white rounded-xl font-bold shadow-lg shadow-fuchsia-200 transition-all hover:-translate-y-0.5"
             >
               {ocrLoading ? "Running OCR on both..." : "Run OCR on Both PDFs"}
             </button>
@@ -142,13 +142,13 @@ const Comparison: React.FC<ComparisonProps> = ({
         <div className="p-4 flex justify-center gap-4 border-t">
           <button
             onClick={() => downloadFile(oldFile)}
-            className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg"
+            className="bg-gradient-to-br from-red-500 to-rose-600 hover:from-red-600 hover:to-rose-700 text-white px-6 py-2.5 rounded-xl font-bold shadow-lg shadow-red-200 transition-all hover:-translate-y-0.5"
           >
             Download Old
           </button>
           <button
             onClick={() => downloadFile(newFile)}
-            className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg"
+            className="bg-gradient-to-br from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white px-6 py-2.5 rounded-xl font-bold shadow-lg shadow-emerald-200 transition-all hover:-translate-y-0.5"
           >
             Download New
           </button>

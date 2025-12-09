@@ -45,7 +45,7 @@ const SplitComponent: React.FC<Props> = ({ file, onSplit }) => {
     copiedPages.forEach((page) => newPdf.addPage(page));
 
     const pdfBytes = await newPdf.save();
-    const blob = new Blob([pdfBytes], { type: "application/pdf" });
+    const blob = new Blob([pdfBytes as any], { type: "application/pdf" });
 
     onSplit(blob);
   };
@@ -75,7 +75,7 @@ const SplitComponent: React.FC<Props> = ({ file, onSplit }) => {
 
       <button
         onClick={handleSplit}
-        className="mt-3 bg-blue-600 text-white px-4 py-2 rounded w-full"
+        className="mt-6 bg-gradient-to-br from-orange-400 to-red-500 hover:from-orange-500 hover:to-red-600 text-white px-6 py-2.5 rounded-xl w-full font-bold shadow-lg shadow-orange-200 hover:shadow-orange-300 transition-all duration-300 hover:-translate-y-0.5"
       >
         Download Selected Pages
       </button>

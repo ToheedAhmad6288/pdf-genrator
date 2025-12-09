@@ -68,13 +68,16 @@ const AddPageNumbersButton: React.FC<AddPageNumbersProps> = ({
     }
 
     const pdfBytes = await pdfDoc.save();
-    const blob = new Blob([pdfBytes], { type: "application/pdf" });
+    const blob = new Blob([pdfBytes as any], { type: "application/pdf" });
     saveAs(blob, "numbered.pdf");
   };
 
   return (
-    <button       className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 "
- onClick={handleAddPageNumbers} disabled={!pdfFile}>
+    <button
+      className="mt-4 px-6 py-2.5 bg-gradient-to-br from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-white rounded-xl font-bold shadow-lg shadow-yellow-200 hover:shadow-yellow-300 transition-all duration-300 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
+      onClick={handleAddPageNumbers}
+      disabled={!pdfFile}
+    >
       Add Page Numbers & Download
     </button>
   );

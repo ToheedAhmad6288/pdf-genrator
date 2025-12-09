@@ -55,9 +55,9 @@ const TextExtractor: React.FC<TextExtractorProps> = ({ file }) => {
       <button
         onClick={extractText}
         disabled={!file || loading}
-        className="w-full bg-primary-600 hover:bg-primary-700 disabled:bg-neutral-400 text-white font-semibold py-2 px-4 rounded-lg transition-colors"
+        className="w-full bg-gradient-to-br from-lime-500 to-green-600 hover:from-lime-600 hover:to-green-700 disabled:from-neutral-400 disabled:to-neutral-500 text-white font-bold py-3 px-4 rounded-xl transition-all shadow-lg shadow-lime-200 hover:-translate-y-0.5"
       >
-        {loading ? 'Extracting...' : 'Extract Text'}
+        {loading ? 'Extracting...' : 'Extract Text from PDF'}
       </button>
 
       {error && (
@@ -71,20 +71,20 @@ const TextExtractor: React.FC<TextExtractorProps> = ({ file }) => {
           <textarea
             value={extractedText}
             readOnly
-            className="w-full h-48 p-3 border border-neutral-300 rounded-lg bg-neutral-100 text-neutral-900 font-mono text-sm"
+            className="w-full h-48 p-3 border border-neutral-300 rounded-lg bg-neutral-100 text-neutral-900 font-mono text-sm focus:ring-2 focus:ring-lime-500 focus:border-lime-500"
           />
-          <div className="flex gap-2">
+          <div className="flex gap-3">
             <button
               onClick={copyToClipboard}
-              className="flex items-center gap-2 bg-secondary-600 hover:bg-secondary-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors"
+              className="flex-1 flex items-center justify-center gap-2 bg-gradient-to-br from-slate-600 to-slate-700 hover:from-slate-700 hover:to-slate-800 text-white font-semibold py-2.5 px-4 rounded-xl shadow-md transition-all hover:-translate-y-0.5"
             >
-              <FaCopy /> Copy
+              <FaCopy /> Copy Text
             </button>
             <button
               onClick={downloadAsText}
-              className="flex items-center gap-2 bg-success-600 hover:bg-success-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors"
+              className="flex-1 flex items-center justify-center gap-2 bg-gradient-to-br from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-semibold py-2.5 px-4 rounded-xl shadow-md transition-all hover:-translate-y-0.5"
             >
-              <FaDownload /> Download
+              <FaDownload /> Download .txt
             </button>
           </div>
         </div>

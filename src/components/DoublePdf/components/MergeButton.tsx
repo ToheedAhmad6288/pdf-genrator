@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import { PDFDocument } from "pdf-lib";
 
+import { Button } from "../../UI";
+
 interface MergeButtonProps {
   files: File[];
 }
@@ -30,7 +32,7 @@ const MergeButton1: React.FC<MergeButtonProps> = ({ files }) => {
       const mergedPdfBytes = await mergedPdf.save();
 
       // FIXED BLOB CREATION
-      const blob = new Blob([mergedPdfBytes], { type: "application/pdf" });
+      const blob = new Blob([mergedPdfBytes as any], { type: "application/pdf" });
 
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
@@ -50,13 +52,15 @@ const MergeButton1: React.FC<MergeButtonProps> = ({ files }) => {
   };
 
   return (
-    <button
+    <Button
       onClick={handleMerge}
       disabled={loading}
-      className="mt-4 px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
+      loading={loading}
+      variant="primary"
+      className="bg-gradient-to-br from-violet-500 to-purple-600 hover:from-violet-600 hover:to-purple-700 shadow-purple-200"
     >
-      {loading ? "Merging..." : "Merge PDFs"}
-    </button>
+      Merge PDFs
+    </Button>
   );
 };
 

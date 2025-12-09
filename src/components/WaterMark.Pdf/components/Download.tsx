@@ -9,13 +9,13 @@ interface WatermarkOptions {
   color: string;
   opacity: number;
   position:
-    | "top-left"
-    | "top-right"
-    | "center"
-    | "bottom-left"
-    | "bottom-right"
-    | "diagonal"
-    | "anti-diagonal";
+  | "top-left"
+  | "top-right"
+  | "center"
+  | "bottom-left"
+  | "bottom-right"
+  | "diagonal"
+  | "anti-diagonal";
 }
 
 interface DownloadButtonProps {
@@ -97,7 +97,7 @@ const DownloadButton: React.FC<DownloadButtonProps> = ({ file, watermark }) => {
       }
 
       const pdfBytes = await pdfDoc.save();
-      const blob = new Blob([pdfBytes], { type: "application/pdf" });
+      const blob = new Blob([pdfBytes as any], { type: "application/pdf" });
       saveAs(blob, "watermarked.pdf");
     } catch (error) {
       console.error("Error applying watermark:", error);
@@ -119,7 +119,7 @@ const DownloadButton: React.FC<DownloadButtonProps> = ({ file, watermark }) => {
     <button
       onClick={handleDownload}
       disabled={!file || loading}
-      className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:opacity-50 transition-all"
+      className="bg-gradient-to-br from-cyan-400 to-blue-500 hover:from-cyan-500 hover:to-blue-600 text-white px-6 py-2.5 rounded-xl font-medium shadow-lg shadow-cyan-200 hover:shadow-cyan-300 transition-all duration-300 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
     >
       {loading ? "Processing..." : "Download Watermarked PDF"}
     </button>

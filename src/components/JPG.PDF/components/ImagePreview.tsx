@@ -7,9 +7,10 @@ import { FiX, FiDownload, FiLoader } from "react-icons/fi";
 interface ImagePreviewProps {
   images: (string | File)[];
   onRemove?: (index: number) => void;
+  onClear?: () => void;
 }
 
-const ImagePreview: React.FC<ImagePreviewProps> = ({ images, onRemove }) => {
+const ImagePreview: React.FC<ImagePreviewProps> = ({ images, onRemove, onClear }) => {
   const [loading, setLoading] = useState(false);
 
   const getImageUrl = (img: string | File) =>
@@ -49,19 +50,34 @@ const ImagePreview: React.FC<ImagePreviewProps> = ({ images, onRemove }) => {
   return (
     <div className="w-full space-y-6">
       {/* Header & Stats */}
-      <div className="flex items-center justify-between border-b pb-4">
-        <h3 className="text-lg font-semibold text-gray-800">Preview Images</h3>
-        <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-bold">
-          {images.length} {images.length === 1 ? 'Image' : 'Images'}
-        </span>
+      <div className="flex items-center justify-between border-b border-gray-100 pb-4 mb-4">
+        <div className="flex items-center gap-3">
+          <h3 className="text-xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
+            Preview Images
+          </h3>
+          <span className="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-xs font-bold ring-1 ring-blue-100">
+            {images.length} {images.length === 1 ? 'Image' : 'Images'}
+          </span>
+        </div>
+
+        {onClear && (
+          <button
+            onClick={onClear}
+            className="text-sm text-red-500 hover:text-red-700 font-semibold px-3 py-1.5 rounded-lg hover:bg-red-50 transition-colors flex items-center gap-2"
+          >
+            <FiX size={16} />
+            Clear All
+          </button>
+        )}
       </div>
 
       {/* Image Grid */}
-      <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 max-h-[600px] overflow-y-auto pr-2 custom-scrollbar">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 max-h-[600px] overflow-y-auto pr-2 custom-scrollbar">
         {images.map((img, index) => (
           <div
             key={index}
-            className="relative group aspect-[3/4] rounded-xl overflow-hidden border border-gray-200 hover:border-blue-500 transition-all duration-300 bg-gray-50 shadow-sm hover:shadow-md"
+            style={{ animationDelay: `${index * 50}ms`, animationFillMode: 'both' }}
+            className="relative group aspect-[3/4] rounded-xl overflow-hidden border border-gray-200 hover:border-blue-500 transition-all duration-300 bg-gray-50 shadow-sm hover:shadow-md animate-fade-in-scale"
           >
             <img
               src={getImageUrl(img)}

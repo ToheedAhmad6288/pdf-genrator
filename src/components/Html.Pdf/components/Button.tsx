@@ -154,7 +154,7 @@ const HtmlDownloadButton: React.FC<HtmlDownloadButtonProps> = ({ targetId, fileN
       const pdfHeight = pdf.internal.pageSize.getHeight();
 
       // compute image size in PDF units
-      const pxToMm = (px: number) => (px * 25.4) / (96 *  (1)); // assuming 96 DPI; html2canvas scale=2 increases pixels
+      const pxToMm = (px: number) => (px * 25.4) / (96 * (1)); // assuming 96 DPI; html2canvas scale=2 increases pixels
       const imgWmm = pdfWidth;
       const imgHmm = (canvas.height * imgWmm) / canvas.width;
 
@@ -205,9 +205,10 @@ const HtmlDownloadButton: React.FC<HtmlDownloadButtonProps> = ({ targetId, fileN
     <button
       onClick={handleDownload}
       disabled={loading}
-      className={`mt-4 px-4 py-2 rounded text-white font-medium ${
-        loading ? "bg-gray-400 cursor-not-allowed" : "bg-indigo-600 hover:bg-indigo-700"
-      }`}
+      className={`mt-4 px-6 py-2.5 rounded-xl text-white font-bold shadow-lg transition-all duration-300 hover:-translate-y-0.5 ${loading
+          ? "bg-gray-400 cursor-not-allowed"
+          : "bg-gradient-to-br from-gray-600 to-slate-700 hover:from-gray-700 hover:to-slate-800 shadow-slate-200 hover:shadow-slate-300"
+        }`}
     >
       {loading ? "Generating..." : "Download as PDF"}
     </button>

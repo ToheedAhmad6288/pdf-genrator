@@ -16,15 +16,15 @@ const RotateControls: React.FC<RotateControlsProps> = ({
 }) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-      <div className="bg-white p-6 rounded-lg w-full max-w-3xl relative shadow-lg">
+      <div className="bg-white p-6 rounded-lg w-full max-w-3xl relative shadow-lg max-h-[85vh] flex flex-col">
         <button
-          className="absolute top-2 right-2 text-gray-600 hover:text-gray-900 font-bold"
+          className="absolute top-2 right-2 text-gray-600 hover:text-gray-900 font-bold z-10"
           onClick={onClose}
         >
           ✕
         </button>
-        <h2 className="text-lg font-bold mb-4 text-center">Rotate Pages</h2>
-        <div className="grid grid-cols-2 gap-4">
+        <h2 className="text-lg font-bold mb-4 text-center shrink-0">Rotate Pages</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 overflow-y-auto p-1 text-center">
           {Array.from({ length: totalPages }).map((_, i) => (
             <div
               key={i}
