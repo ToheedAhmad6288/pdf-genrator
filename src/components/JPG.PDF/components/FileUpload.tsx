@@ -32,12 +32,12 @@ const FileUpload: React.FC<FileUploadProps> = ({ onFilesSelected }) => {
           onDragLeave={() => setIsDragging(false)}
           onDrop={e => { e.preventDefault(); setIsDragging(false); handleFiles(e.dataTransfer.files); }}
           onClick={() => fileInputRef.current?.click()}
-          className={`relative p-4 sm:p-8 border-2 border-dashed rounded-lg cursor-pointer transition-all duration-300 transform hover:scale-102 ${isDragging
+          className={`relative p-2 sm:p-8 border-2 border-dashed rounded-lg cursor-pointer transition-all duration-300 transform hover:scale-102 ${isDragging
               ? "border-blue-500 bg-blue-50 shadow-lg scale-105"
               : uploadedCount > 0
                 ? "border-green-400 bg-green-50"
                 : "border-gray-300 bg-gradient-to-br from-gray-50 to-gray-100 hover:border-blue-400"
-            }`}
+            } min-h-[120px] sm:min-h-[180px]`}
         >
           <div className="flex flex-col items-center justify-center">
             {uploadedCount > 0 ? (

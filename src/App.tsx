@@ -29,6 +29,7 @@ import TextFileUpload from "./components/ExtractText/components/FileUpload";
 import TextExtractor from "./components/ExtractText/components/TextExtractor";
 import CompressPdfPage from "./components/CompressPdf/CompressPdfPage";
 import JpgPdfPage from "./components/JPG.PDF/JpgPdfPage";
+import SplitPdfPage from "./components/SPLIT.PDF/SplitPdfPage";
 import "./App.css";
 import FileUpload4 from "./components/DoublePdf/components/FileUpload1";
 import MergeButton1 from "./components/DoublePdf/components/MergeButton";
@@ -72,18 +73,7 @@ const PageCard: React.FC<{
   children: React.ReactNode;
 }> = ({ title, icon, children }) => (
   <div className="animate-fade-in-up w-full max-w-7xl mx-auto">
-    {/* Page Header */}
-    <div className="flex items-center gap-4 mb-8">
-      <div className="p-3.5 bg-white shadow-md rounded-2xl text-primary-600 text-2xl border border-gray-100">
-        {icon}
-      </div>
-      <div>
-        <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 tracking-tight">{title}</h2>
-        <p className="text-gray-500 text-sm font-medium mt-1">Professional PDF Tool</p>
-      </div>
-    </div>
-
-    {/* Content Area */}
+    {/* Content Area Only - header removed */}
     <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-xl border border-white/60 p-6 sm:p-8 lg:p-10 relative overflow-hidden">
       <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-primary-50/50 to-secondary-50/50 rounded-full blur-3xl -z-10" />
       {children}
@@ -281,113 +271,7 @@ const App: React.FC = () => {
               )}
               {currentPage === "split" && (
                 <Container>
-                  <PageCard
-                    title="Split PDF"
-                    icon={<FaCut />}
-                  >
-                    {/* Upload File */}
-                    <div className="space-y-6">
-                      <Input
-                        type="file"
-                        label="Upload PDF"
-                        accept="application/pdf"
-                        onChange={async (e) => {
-                          if (!e.target.files || e.target.files.length === 0)
-                            return;
-                          const file = e.target.files[0];
-                          setUploadFile([file]);
-
-                          // Load pages count
-                          const arrayBuffer = await file.arrayBuffer();
-                          const pdf = await PDFDocument.load(arrayBuffer);
-                          setTotalPages(pdf.getPageCount());
-                        }}
-                      />
-
-                      {/* Show Uploaded File */}
-                      {uploadFile.length > 0 && (
-                        <div className="bg-blue-50 p-4 rounded-lg border border-blue-100 text-blue-800">
-                          <p className="font-medium">Selected File: {uploadFile[0].name}</p>
-                          {totalPages > 0 && (
-                            <p className="text-sm mt-1">Total Pages: <b>{totalPages}</b></p>
-                          )}
-                        </div>
-                      )}
-
-                      {/* Page Selection */}
-                      {totalPages > 0 && (
-                        <Input
-                          type="text"
-                          label="Select Pages to Extract"
-                          placeholder="e.g. 1,2,5 or 3-7"
-                          onChange={(e) => setSelectedPages(e.target.value)}
-                          helperText="Enter page numbers (e.g., 1, 5) or ranges (e.g., 2-4)"
-                        />
-                      )}
-
-                      {/* Download Button */}
-                      <div className="pt-2">
-                        <Button
-                          fullWidth
-                          onClick={async () => {
-                            if (!uploadFile.length)
-                              return alert("Upload a PDF first!");
-                            if (!selectedPages) return alert("Enter pages to split!");
-
-                            const file = uploadFile[0];
-                            const arrayBuffer = await file.arrayBuffer();
-                            const pdfDoc = await PDFDocument.load(arrayBuffer);
-
-                            // New PDF
-                            const newPdf = await PDFDocument.create();
-
-                            // Parse pages
-                            let pagesToExtract: number[] = [];
-
-                            selectedPages.split(",").forEach((part) => {
-                              if (part.includes("-")) {
-                                const [start, end] = part.split("-").map(Number);
-                                for (let p = start; p <= end; p++)
-                                  pagesToExtract.push(p);
-                              } else {
-                                pagesToExtract.push(Number(part));
-                              }
-                            });
-
-                            // Remove invalid + duplicates
-                            pagesToExtract = Array.from(
-                              new Set(
-                                pagesToExtract.filter(
-                                  (p) => p >= 1 && p <= totalPages
-                                )
-                              )
-                            );
-
-                            if (pagesToExtract.length === 0) {
-                              return alert("No valid pages selected!");
-                            }
-
-                            // Copy pages into new PDF
-                            const copied = await newPdf.copyPages(
-                              pdfDoc,
-                              pagesToExtract.map((p) => p - 1)
-                            );
-                            copied.forEach((page) => newPdf.addPage(page));
-
-                            const pdfBytes = await newPdf.save();
-
-                            saveAs(
-                              new Blob([pdfBytes as any], { type: "application/pdf" }),
-                              "extracted_pages.pdf"
-                            );
-                          }}
-                          className="bg-gradient-to-br from-orange-400 to-red-500 hover:from-orange-500 hover:to-red-600 shadow-orange-200 text-white"
-                        >
-                          Download Selected Pages
-                        </Button>
-                      </div>
-                    </div>
-                  </PageCard>
+                  <SplitPdfPage />
                 </Container>
               )}
 

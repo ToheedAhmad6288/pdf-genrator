@@ -40,45 +40,7 @@ const CompressButton: React.FC<CompressButtonProps> = ({ file }) => {
 
   return (
     <div className="mt-6 space-y-4">
-      <div>
-        <label className="block mb-2 font-semibold text-neutral-700">Compression Quality:</label>
-        <select
-          value={quality}
-          onChange={(e) => setQuality(e.target.value as "high" | "medium" | "low")}
-          className="w-full border border-neutral-300 px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
-        >
-          <option value="high">High Quality (Less compression)</option>
-          <option value="medium">Medium Quality (Balanced)</option>
-          <option value="low">Low Quality (Maximum compression)</option>
-        </select>
-      </div>
-
-      <Button
-        disabled={!file}
-        onClick={handleCompress}
-        fullWidth
-        className={file ? "bg-gradient-to-br from-pink-500 to-rose-600 hover:from-pink-600 hover:to-rose-700 shadow-pink-200" : ""}
-      >
-        {file ? "Compress & Download PDF" : "Select a PDF file first"}
-      </Button>
-
-      {file && (
-        <div className="mt-4 p-4 bg-neutral-50 rounded-lg border border-neutral-200">
-          <p className="text-sm text-neutral-600">
-            <span className="font-semibold">Original Size:</span> {(file.size / 1024).toFixed(2)} KB
-          </p>
-          {compressedSize && (
-            <>
-              <p className="text-sm text-neutral-600 mt-2">
-                <span className="font-semibold">Compressed Size:</span> {(compressedSize / 1024).toFixed(2)} KB
-              </p>
-              <p className="text-sm text-green-600 mt-2">
-                <span className="font-semibold">Saved:</span> {((1 - compressedSize / file.size) * 100).toFixed(1)}%
-              </p>
-            </>
-          )}
-        </div>
-      )}
+      {/*  */}
     </div>
   );
 };

@@ -72,7 +72,7 @@ const ImagePreview: React.FC<ImagePreviewProps> = ({ images, onRemove, onClear }
       </div>
 
       {/* Image Grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 max-h-[600px] overflow-y-auto pr-2 custom-scrollbar">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 max-h-[300px] sm:max-h-[600px] overflow-y-auto pr-2 custom-scrollbar w-full max-w-xs sm:max-w-full mx-auto">
         {images.map((img, index) => (
           <div
             key={index}
