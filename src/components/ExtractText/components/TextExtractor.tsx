@@ -11,6 +11,7 @@ const TextExtractor: React.FC<TextExtractorProps> = ({ file }) => {
   const [extractedText, setExtractedText] = useState<string>('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string>('');
+  const [copied, setCopied] = useState(false);
 
   const extractText = async () => {
     if (!file) return;
@@ -20,7 +21,7 @@ const TextExtractor: React.FC<TextExtractorProps> = ({ file }) => {
 
     try {
       // @ts-ignore
-      const pdf = await pdfjsLib.getDocument(file).promise;
+      const pdf = await pdfjsLib.getDocument(URL.createObjectURL(file)).promise;
       let fullText = '';
 
       for (let i = 1; i <= pdf.numPages; i++) {
@@ -32,9 +33,9 @@ const TextExtractor: React.FC<TextExtractorProps> = ({ file }) => {
         fullText += `\n--- Page ${i} ---\n${pageText}`;
       }
 
-      setExtractedText(fullText);
+      setExtractedText(fullText.trim());
     } catch (err) {
-      setError('Failed to extract text from PDF');
+      setError('Failed to extract text from PDF. Please ensure it is a valid PDF file.');
       console.error(err);
     } finally {
       setLoading(false);
@@ -43,6 +44,8 @@ const TextExtractor: React.FC<TextExtractorProps> = ({ file }) => {
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(extractedText);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   const downloadAsText = () => {
@@ -51,42 +54,103 @@ const TextExtractor: React.FC<TextExtractorProps> = ({ file }) => {
   };
 
   return (
-    <div className="space-y-4">
-      <button
-        onClick={extractText}
-        disabled={!file || loading}
-        className="w-full bg-gradient-to-br from-lime-500 to-green-600 hover:from-lime-600 hover:to-green-700 disabled:from-neutral-400 disabled:to-neutral-500 text-white font-bold py-3 px-4 rounded-xl transition-all shadow-lg shadow-lime-200 hover:-translate-y-0.5"
-      >
-        {loading ? 'Extracting...' : 'Extract Text from PDF'}
-      </button>
+    <div className="space-y-8">
+      {!extractedText && (
+        <div className="relative">
+          <button
+            onClick={extractText}
+            disabled={!file || loading}
+            className={`
+              w-full font-bold py-5 px-8 rounded-2xl transition-all duration-300 shadow-xl flex items-center justify-center gap-4 relative overflow-hidden group/btn
+              ${loading
+                ? 'bg-neutral-100 text-neutral-400 cursor-not-allowed'
+                : 'bg-gradient-to-r from-success-600 via-success-500 to-success-600 text-white shadow-success-500/25 hover:shadow-success-500/40 hover:-translate-y-1 active:scale-95'
+              }
+            `}
+          >
+            {loading ? (
+              <>
+                <div className="w-5 h-5 border-3 border-success-500 border-t-transparent rounded-full animate-spin"></div>
+                <span className="animate-pulse">Analyzing Document...</span>
+              </>
+            ) : (
+              <>
+                <span>Extract Content from PDF</span>
+                <div className="absolute inset-0 bg-white/20 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300"></div>
+              </>
+            )}
+          </button>
+
+          {loading && (
+            <div className="mt-4 h-1.5 w-full bg-success-100 rounded-full overflow-hidden">
+              <div className="h-full bg-success-500 animate-[progress_2s_ease-in-out_infinite] w-1/3 origin-left"></div>
+            </div>
+          )}
+        </div>
+      )}
 
       {error && (
-        <div className="bg-danger-100 border border-danger-400 text-danger-700 px-4 py-3 rounded">
-          {error}
+        <div className="bg-red-50 border-l-4 border-red-500 text-red-700 p-4 rounded-xl animate-shake flex items-center gap-3">
+          <span className="text-xl">⚠️</span>
+          <p className="font-medium">{error}</p>
         </div>
       )}
 
       {extractedText && (
-        <div className="space-y-3">
-          <textarea
-            value={extractedText}
-            readOnly
-            className="w-full h-48 p-3 border border-neutral-300 rounded-lg bg-neutral-100 text-neutral-900 font-mono text-sm focus:ring-2 focus:ring-lime-500 focus:border-lime-500"
-          />
-          <div className="flex gap-3">
+        <div className="space-y-6 animate-fade-in-up">
+          <div className="relative group/text">
+            <div className="absolute -inset-1 bg-gradient-to-r from-success-100 to-success-50 rounded-3xl blur opacity-25 group-hover/text:opacity-50 transition duration-1000"></div>
+            <textarea
+              value={extractedText}
+              readOnly
+              className="relative w-full h-80 p-6 border-2 border-neutral-100 rounded-3xl bg-white/80 backdrop-blur-sm text-neutral-800 font-mono text-sm focus:ring-4 focus:ring-success-100 focus:border-success-400 transition-all resize-none shadow-inner"
+              placeholder="Extracted text will appear here..."
+            />
+            <div className="absolute top-4 right-4 flex items-center gap-3">
+              <span className="bg-neutral-900/90 backdrop-blur-md text-white text-[11px] px-3 py-1.5 rounded-full shadow-lg uppercase font-bold tracking-widest border border-white/10">
+                {extractedText.length.toLocaleString()} CHARS
+              </span>
+            </div>
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-4">
             <button
               onClick={copyToClipboard}
-              className="flex-1 flex items-center justify-center gap-2 bg-gradient-to-br from-slate-600 to-slate-700 hover:from-slate-700 hover:to-slate-800 text-white font-semibold py-2.5 px-4 rounded-xl shadow-md transition-all hover:-translate-y-0.5"
+              className={`
+                flex-1 flex items-center justify-center gap-2 font-bold py-4 px-8 rounded-2xl shadow-xl transition-all hover:-translate-y-1 active:scale-95
+                ${copied
+                  ? 'bg-success-500 text-white shadow-success-500/25'
+                  : 'bg-neutral-900 text-white hover:bg-black shadow-neutral-900/20'
+                }
+              `}
             >
-              <FaCopy /> Copy Text
+              {copied ? '✓ Copied' : <><FaCopy /> Copy Text</>}
             </button>
             <button
               onClick={downloadAsText}
-              className="flex-1 flex items-center justify-center gap-2 bg-gradient-to-br from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-semibold py-2.5 px-4 rounded-xl shadow-md transition-all hover:-translate-y-0.5"
+              className="flex-1 flex items-center justify-center gap-2 bg-gradient-to-r from-secondary-500 to-secondary-600 hover:from-secondary-600 hover:to-secondary-700 text-white font-bold py-4 px-8 rounded-2xl shadow-xl shadow-secondary-500/30 hover:shadow-secondary-500/40 hover:-translate-y-1 active:scale-95 transition-all"
             >
               <FaDownload /> Download .txt
             </button>
           </div>
+
+          <button
+            onClick={() => { setExtractedText(''); setError(''); }}
+            className="w-full text-neutral-400 hover:text-red-500 text-sm font-bold transition-colors py-2 flex items-center justify-center gap-2 group"
+          >
+            <span className="w-4 h-px bg-neutral-200 group-hover:bg-red-200 transition-colors"></span>
+            Clear and start over
+            <span className="w-4 h-px bg-neutral-200 group-hover:bg-red-200 transition-colors"></span>
+          </button>
+        </div>
+      )}
+
+      {!file && !loading && !extractedText && (
+        <div className="text-center py-16 px-8 border-2 border-dashed border-neutral-100 rounded-3xl bg-neutral-50/30 opacity-60">
+          <div className="w-16 h-16 bg-neutral-100 rounded-full flex items-center justify-center mx-auto mb-4 grayscale opacity-50">
+            <FaCopy className="text-2xl text-neutral-400" />
+          </div>
+          <p className="text-neutral-500 font-medium italic">Ready to transform your document</p>
         </div>
       )}
     </div>

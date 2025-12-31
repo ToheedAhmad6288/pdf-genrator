@@ -19,72 +19,82 @@ const JpgPdfPage: React.FC = () => {
   };
 
   return (
-    <div className="relative min-h-screen flex flex-col items-center justify-start pt-4 pb-4 px-2 sm:px-6 lg:px-8 overflow-x-hidden w-full animate-fadeIn">
-      {/* Advanced, immersive, glassy background */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-br from-indigo-400 via-pink-200 to-rose-200 animate-gradientShift opacity-95" style={{ backgroundSize: '200% 200%' }}></div>
-        <div className="absolute left-1/4 top-1/4 w-1/2 h-1/2 bg-pink-400 opacity-40 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute right-1/4 bottom-1/4 w-1/3 h-1/3 bg-indigo-400 opacity-30 rounded-full blur-2xl animate-pulse"></div>
-        <div className="absolute left-1/3 bottom-0 w-1/4 h-1/4 bg-rose-300 opacity-40 rounded-full blur-2xl animate-pulse"></div>
-        <div className="absolute inset-0 bg-black/10 backdrop-blur-2xl" style={{ boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.18)' }}></div>
+    <div className="relative min-h-[calc(100vh-4rem)]">
+      {/* Decorative Background Elements */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-full -z-10 opacity-30 pointer-events-none">
+        <div className="absolute top-20 -left-20 w-96 h-96 bg-primary-200 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-20 -right-20 w-96 h-96 bg-secondary-200 rounded-full blur-3xl animate-pulse delay-700"></div>
       </div>
 
-      {/* Header Section */}
-      <div className="w-full max-w-4xl mx-auto flex flex-col items-center mb-4 mt-2 scale-90">
-        <h1 className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-indigo-700 via-pink-600 to-rose-500 bg-clip-text text-transparent drop-shadow-lg mb-2">JPG → PDF</h1>
-        <p className="text-lg text-gray-700 font-medium text-center max-w-2xl">Professional PDF Tool &mdash; Convert your images to PDF with style. Drag, drop, and reorder images for a perfect result.</p>
-      </div>
-
-      {/* Main Content Layout */}
-      <div
-        className={`w-full max-w-5xl mx-auto transition-all duration-500 ease-in-out ${images.length > 0 ? 'grid lg:grid-cols-12 gap-8 items-start' : ''} scale-95`}
-      >
-        {/* Left Column: Input Section */}
-        <div
-          className={`transition-all duration-500 ease-in-out ${images.length > 0 ? 'lg:col-span-4 xl:col-span-3' : 'w-full'}`}
-        >
-          <div className={`relative bg-white/70 backdrop-blur-2xl rounded-3xl shadow-2xl border-2 border-indigo-200 p-8 overflow-hidden group hover:shadow-indigo-300 hover:scale-[1.025] transition-all duration-300 ${images.length > 0 ? 'sticky top-24' : ''}`}
-            style={{ boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.18)' }}>
-            <div className="absolute -inset-1 rounded-3xl border-4 border-transparent group-hover:border-indigo-400 pointer-events-none transition-all duration-300 animate-glow"></div>
-            {images.length > 0 && (
-              <h2 className="text-xl font-extrabold text-transparent bg-gradient-to-r from-indigo-600 via-pink-500 to-rose-500 bg-clip-text mb-4 flex items-center gap-2 drop-shadow-sm">
-                <span className="w-1 h-6 bg-gradient-to-b from-indigo-500 to-pink-500 rounded-full"></span>
-                Add More Images
-              </h2>
-            )}
-
-            <FileUpload onFilesSelected={handleFilesSelected} />
-
-            {images.length === 0 && (
-              <div className="text-center mt-8 text-gray-400">
-                <p className="text-base font-semibold tracking-wide">Supported formats: <span className="text-indigo-500">JPG, PNG, WEBP</span></p>
-                <p className="text-xs mt-2 opacity-80">Drag & drop or click to upload</p>
-              </div>
-            )}
-
-            {images.length > 0 && (
-              <div className="mt-6 p-4 bg-gradient-to-r from-blue-50 to-pink-50 rounded-xl border border-blue-100 shadow-sm">
-                <p className="text-xs text-blue-700 font-medium text-center">
-                  Tip: Drag images in the preview to reorder them before converting.
-                </p>
-              </div>
-            )}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10 animate-fade-in-up">
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-50 border border-primary-100 text-primary-600 text-sm font-bold mb-6 hover:bg-primary-100 transition-colors cursor-default">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-primary-500"></span>
+            </span>
+            CONVERT
           </div>
+          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 leading-tight">
+            <span className="inline-block bg-gradient-to-r from-primary-600 via-primary-500 to-secondary-600 bg-clip-text text-transparent py-1">
+              JPG to PDF
+            </span>
+            <span className="text-neutral-900 ml-3">Converter</span>
+          </h1>
+          <p className="text-neutral-600 max-w-2xl mx-auto text-lg leading-relaxed">
+            Transform your images into high-quality PDF documents effortlessly. Drag, drop, and reorder for a perfect layout.
+          </p>
         </div>
 
-        {/* Right Column: Preview Section */}
-        {images.length > 0 && (
-          <div className="lg:col-span-8 xl:col-span-9 animate-fade-in-up">
-            <div className="relative bg-white/70 backdrop-blur-2xl rounded-3xl shadow-2xl border-2 border-pink-200 p-8 overflow-hidden group hover:shadow-pink-300 hover:scale-[1.015] transition-all duration-300" style={{ boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.18)' }}>
-              <div className="absolute -inset-1 rounded-3xl border-4 border-transparent group-hover:border-pink-400 pointer-events-none transition-all duration-300 animate-glow"></div>
-              <ImagePreview
-                images={images}
-                onRemove={handleRemoveImage}
-                onClear={handleClearAll}
-              />
+        <div className={`grid grid-cols-1 ${images.length > 0 ? 'lg:grid-cols-12' : 'max-w-3xl mx-auto'} gap-10 items-start`}>
+          {/* Left Column - Input */}
+          <div className={images.length > 0 ? 'lg:col-span-4' : 'w-full'}>
+            <div className="group bg-white/70 backdrop-blur-xl p-8 rounded-[2rem] border border-white shadow-2xl shadow-neutral-200/50 transition-all hover:shadow-primary-100/30">
+              <div className="flex items-center gap-4 mb-8">
+                <div className="w-12 h-12 rounded-2xl bg-primary-600 flex items-center justify-center shadow-lg shadow-primary-500/30 group-hover:scale-110 transition-transform">
+                  <span className="text-white font-bold text-xl">1</span>
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-neutral-900">Upload Images</h3>
+                  <p className="text-neutral-500 text-sm font-medium">Add JPG, PNG, or WEBP</p>
+                </div>
+              </div>
+              <FileUpload onFilesSelected={handleFilesSelected} />
+
+              {images.length > 0 && (
+                <div className="mt-8 p-4 bg-primary-50/50 rounded-2xl border border-primary-100 animate-fade-in">
+                  <p className="text-xs text-primary-700 font-bold flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-primary-500 animate-pulse"></span>
+                    Tip: Drag images to reorder
+                  </p>
+                </div>
+              )}
             </div>
           </div>
-        )}
+
+          {/* Right Column - Preview/Result */}
+          {images.length > 0 && (
+            <div className="lg:col-span-8 animate-fade-in-up">
+              <div className="bg-white/70 backdrop-blur-xl p-8 rounded-[2rem] border border-white shadow-2xl shadow-neutral-200/50 relative overflow-hidden group">
+                <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-primary-500 via-primary-400 to-secondary-500"></div>
+                <div className="flex items-center gap-4 mb-8">
+                  <div className="w-12 h-12 rounded-2xl bg-secondary-500 flex items-center justify-center shadow-lg shadow-secondary-500/30 group-hover:scale-110 transition-transform">
+                    <span className="text-white font-bold text-xl">2</span>
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-neutral-900">Preview & Convert</h3>
+                    <p className="text-neutral-500 text-sm font-medium">Arrange and generate your PDF</p>
+                  </div>
+                </div>
+                <ImagePreview
+                  images={images}
+                  onRemove={handleRemoveImage}
+                  onClear={handleClearAll}
+                />
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
