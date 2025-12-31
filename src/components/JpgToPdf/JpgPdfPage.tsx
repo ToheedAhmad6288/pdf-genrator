@@ -22,11 +22,11 @@ const JpgPdfPage: React.FC = () => {
     <div className="relative min-h-screen flex flex-col items-center justify-start pt-4 pb-4 px-2 sm:px-6 lg:px-8 overflow-x-hidden w-full animate-fadeIn">
       {/* Advanced, immersive, glassy background */}
       <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-br from-indigo-400 via-pink-200 to-rose-200 animate-gradientShift opacity-95" style={{backgroundSize:'200% 200%'}}></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-indigo-400 via-pink-200 to-rose-200 animate-gradientShift opacity-95" style={{ backgroundSize: '200% 200%' }}></div>
         <div className="absolute left-1/4 top-1/4 w-1/2 h-1/2 bg-pink-400 opacity-40 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute right-1/4 bottom-1/4 w-1/3 h-1/3 bg-indigo-400 opacity-30 rounded-full blur-2xl animate-pulse"></div>
         <div className="absolute left-1/3 bottom-0 w-1/4 h-1/4 bg-rose-300 opacity-40 rounded-full blur-2xl animate-pulse"></div>
-        <div className="absolute inset-0 bg-black/10 backdrop-blur-2xl" style={{boxShadow:'0 8px 32px 0 rgba(31, 38, 135, 0.18)'}}></div>
+        <div className="absolute inset-0 bg-black/10 backdrop-blur-2xl" style={{ boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.18)' }}></div>
       </div>
 
       {/* Header Section */}
@@ -44,7 +44,7 @@ const JpgPdfPage: React.FC = () => {
           className={`transition-all duration-500 ease-in-out ${images.length > 0 ? 'lg:col-span-4 xl:col-span-3' : 'w-full'}`}
         >
           <div className={`relative bg-white/70 backdrop-blur-2xl rounded-3xl shadow-2xl border-2 border-indigo-200 p-8 overflow-hidden group hover:shadow-indigo-300 hover:scale-[1.025] transition-all duration-300 ${images.length > 0 ? 'sticky top-24' : ''}`}
-            style={{boxShadow:'0 8px 32px 0 rgba(31, 38, 135, 0.18)'}}>
+            style={{ boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.18)' }}>
             <div className="absolute -inset-1 rounded-3xl border-4 border-transparent group-hover:border-indigo-400 pointer-events-none transition-all duration-300 animate-glow"></div>
             {images.length > 0 && (
               <h2 className="text-xl font-extrabold text-transparent bg-gradient-to-r from-indigo-600 via-pink-500 to-rose-500 bg-clip-text mb-4 flex items-center gap-2 drop-shadow-sm">
@@ -75,7 +75,7 @@ const JpgPdfPage: React.FC = () => {
         {/* Right Column: Preview Section */}
         {images.length > 0 && (
           <div className="lg:col-span-8 xl:col-span-9 animate-fade-in-up">
-            <div className="relative bg-white/70 backdrop-blur-2xl rounded-3xl shadow-2xl border-2 border-pink-200 p-8 overflow-hidden group hover:shadow-pink-300 hover:scale-[1.015] transition-all duration-300" style={{boxShadow:'0 8px 32px 0 rgba(31, 38, 135, 0.18)'}}>
+            <div className="relative bg-white/70 backdrop-blur-2xl rounded-3xl shadow-2xl border-2 border-pink-200 p-8 overflow-hidden group hover:shadow-pink-300 hover:scale-[1.015] transition-all duration-300" style={{ boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.18)' }}>
               <div className="absolute -inset-1 rounded-3xl border-4 border-transparent group-hover:border-pink-400 pointer-events-none transition-all duration-300 animate-glow"></div>
               <ImagePreview
                 images={images}
