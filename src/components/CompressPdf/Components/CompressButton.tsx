@@ -39,44 +39,41 @@ const CompressButton: React.FC<CompressButtonProps> = ({ file }) => {
   };
 
   return (
-    <div className="mt-6 space-y-4">
-      <div>
-        <label className="block mb-2 font-semibold text-neutral-700">Compression Quality:</label>
-        <select
-          value={quality}
-          onChange={(e) => setQuality(e.target.value as "high" | "medium" | "low")}
-          className="w-full border border-neutral-300 px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
-        >
-          <option value="high">High Quality (Less compression)</option>
-          <option value="medium">Medium Quality (Balanced)</option>
-          <option value="low">Low Quality (Maximum compression)</option>
-        </select>
+    <div className="mt-6 space-y-6">
+      <div className="flex flex-col gap-3">
+        <label className="text-sm font-bold text-gray-700">Compression Quality</label>
+        <div className="grid grid-cols-3 gap-3">
+          {(["high", "medium", "low"] as const).map((q) => (
+            <button
+              key={q}
+              onClick={() => setQuality(q)}
+              className={`py-2 px-4 rounded-xl text-sm font-semibold capitalize transition-all duration-300 ${quality === q
+                  ? "bg-primary-600 text-white shadow-lg shadow-primary-200 scale-105"
+                  : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                }`}
+            >
+              {q}
+            </button>
+          ))}
+        </div>
       </div>
 
       <Button
-        disabled={!file}
         onClick={handleCompress}
+        disabled={!file}
         fullWidth
-        className={file ? "bg-gradient-to-br from-pink-500 to-rose-600 hover:from-pink-600 hover:to-rose-700 shadow-pink-200" : ""}
+        variant="primary"
+        className="bg-gradient-to-r from-primary-600 to-indigo-600 hover:from-primary-700 hover:to-indigo-700"
       >
-        {file ? "Compress & Download PDF" : "Select a PDF file first"}
+        Compress PDF
       </Button>
 
-      {file && (
-        <div className="mt-4 p-4 bg-neutral-50 rounded-lg border border-neutral-200">
-          <p className="text-sm text-neutral-600">
-            <span className="font-semibold">Original Size:</span> {(file.size / 1024).toFixed(2)} KB
+      {compressedSize && (
+        <div className="p-4 bg-success-50 rounded-xl border border-success-100 animate-fadeIn">
+          <p className="text-success-700 text-sm font-medium flex items-center gap-2">
+            <span>✓</span> Compressed successfully!
+            New size: {(compressedSize / 1024).toFixed(2)} KB
           </p>
-          {compressedSize && (
-            <>
-              <p className="text-sm text-neutral-600 mt-2">
-                <span className="font-semibold">Compressed Size:</span> {(compressedSize / 1024).toFixed(2)} KB
-              </p>
-              <p className="text-sm text-green-600 mt-2">
-                <span className="font-semibold">Saved:</span> {((1 - compressedSize / file.size) * 100).toFixed(1)}%
-              </p>
-            </>
-          )}
         </div>
       )}
     </div>
