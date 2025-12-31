@@ -8,7 +8,7 @@ const Card: React.FC<{
   <div className="bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 p-6 sm:p-8 md:p-10 min-h-[420px] relative border border-gradient-to-r border-gray-100 group overflow-hidden">
     {/* Animated background gradient effect */}
     <div className="absolute inset-0 bg-gradient-to-br from-blue-50/30 to-purple-50/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"></div>
-    
+
     {/* Content wrapper */}
     <div className="relative z-10">
       {icon && (

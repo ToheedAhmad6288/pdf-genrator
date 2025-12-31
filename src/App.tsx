@@ -721,127 +721,132 @@ const PageNumbersPage: React.FC<{
     </Container>
   );
 
-// Compare PDFs Page
-const ComparePdfsPage: React.FC<{
-  onBack: () => void;
-  oldPdf: File | null;
-  setOldPdf: React.Dispatch<React.SetStateAction<File | null>>;
-  newPdf: File | null;
-  setNewPdf: React.Dispatch<React.SetStateAction<File | null>>;
-  oldText: string;
-  setOldText: React.Dispatch<React.SetStateAction<string>>;
-  newText: string;
-  setNewText: React.Dispatch<React.SetStateAction<string>>;
-  showComparePopup: boolean;
-  setShowComparePopup: React.Dispatch<React.SetStateAction<boolean>>;
-  ocrLoading: boolean;
-  setOcrLoading: React.Dispatch<React.SetStateAction<boolean>>;
-  ocrError: string | null;
-  setOcrError: React.Dispatch<React.SetStateAction<string | null>>;
-}> = ({
-  oldPdf,
-  setOldPdf,
-  newPdf,
-  setNewPdf,
-  oldText,
-  setOldText,
-  newText,
-  setNewText,
-  showComparePopup,
-  setShowComparePopup,
-  ocrLoading,
-  ocrError,
-}) => {
-    const extractTextFromPdf = async (file: File): Promise<string> => {
-      try {
-        const arrayBuffer = await file.arrayBuffer();
-        const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
-        let text = "";
-        for (let i = 1; i <= pdf.numPages; i++) {
-          const page = await pdf.getPage(i);
-          const content = await page.getTextContent();
-          const strings = content.items.map((it: any) => it.str || "");
-          const pageText = strings.join(" ");
-          text += pageText + "\n";
-        }
-        return text.trim();
-      } catch (error) {
-        console.error("Error extracting PDF text:", error);
-        return "";
+ompare PDFs Page
+t ComparePdfsPage: React.FC < {
+  ck: () => void;
+  df: File | null;
+  ldPdf: React.Dispatch<React.SetStateAction<File | null>>;
+  df: File | null;
+  ewPdf: React.Dispatch<React.SetStateAction<File | null>>;
+  ext: string;
+  ldText: React.Dispatch<React.SetStateAction<string>>;
+  ext: string;
+  ewText: React.Dispatch<React.SetStateAction<string>>;
+  ComparePopup: boolean;
+  howComparePopup: React.Dispatch<React.SetStateAction<boolean>>;
+  oading: boolean;
+  crLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  rror: string | null;
+  crError: React.Dispatch<React.SetStateAction<string | null>>;
+ ({
+    df,
+    ldPdf,
+    df,
+    ewPdf,
+    ext,
+    ldText,
+    ext,
+    ewText,
+    ComparePopup,
+    howComparePopup,
+    oading,
+    rror,
+> {
+    t extractTextFromPdf = async (file: File): Promise<string> => {
+      {
+        t arrayBuffer = await file.arrayBuffer();
+        t pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+        text = "";
+        (let i = 1; i <= pdf.numPages; i++) {
+          t page = await pdf.getPage(i);
+          t content = await page.getTextContent();
+          t strings = content.items.map((it: any) => it.str || "");
+          t pageText = strings.join(" ");
+           += pageText + "\n";
+        
+        rn text.trim();
+  tch(error) {
+    ole.error("Error extracting PDF text:", error);
+        rn "";
+      
+    
+
+    t handleCompare = async () => {
+      !oldPdf || !newPdf) {
+        t("Please upload both PDFs!");
+        rn;
+
+        {
+        t oldTxt = await extractTextFromPdf(oldPdf);
+        t newTxt = await extractTextFromPdf(newPdf);
+          ldText(oldTxt);
+          ewText(newTxt);
+          howComparePopup(true);
+          tch(error) {
+            ole.error("Error during comparison:", error);
+            t("Error comparing PDFs. Check console for details.");
+
+
+
+            rn(
+              tainer >
+              eCard title = "Compare PDFs" icon = {< FaExchangeAlt />}>
+                className="grid grid-cols-1 md:grid-cols-2 gap-6" >
+                  className="space-y-2" >
+                    el className = "text-sm font-semibold" > Original PDF</label >
+                      eUploadStyled onFilesSelected = {(f) => setOldPdf(f[0])
+        } />
+        Pdf && <p className="text-xs text-green-600">✓ {oldPdf.name}</p>
       }
-    };
+      v >
+        className="space-y-2" >
+          el className = "text-sm font-semibold" > New PDF</label >
+            eUploadStyled onFilesSelected = {(f) => setNewPdf(f[0])
+    } />
+    Pdf && <p className="text-xs text-green-600">✓ {newPdf.name}</p>
+  }
+  v >
+    v >
+    className="mt-6 flex justify-center" >
+      ton
+  ick = { handleCompare }
+  bled = {!oldPdf || !newPdf
+}
+ant = "primary"
+  = "lg"
+            
+              are Files
+tton >
+  v >
+  geCard >
 
-    const handleCompare = async () => {
-      if (!oldPdf || !newPdf) {
-        alert("Please upload both PDFs!");
-        return;
-      }
-      try {
-        const oldTxt = await extractTextFromPdf(oldPdf);
-        const newTxt = await extractTextFromPdf(newPdf);
-        setOldText(oldTxt);
-        setNewText(newTxt);
-        setShowComparePopup(true);
-      } catch (error) {
-        console.error("Error during comparison:", error);
-        alert("Error comparing PDFs. Check console for details.");
-      }
-    };
+  parison
+ile = { oldPdf }
+ile = { newPdf }
+ext = { oldText }
+ext = { newText }
+Popup = { showComparePopup }
+ose = {() => setShowComparePopup(false)}
+nOcr = { async() => { }}
+oading = { ocrLoading }
+rror = { ocrError }
 
-    return (
-      <Container>
-        <PageCard title="Compare PDFs" icon={<FaExchangeAlt />}>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="space-y-2">
-              <label className="text-sm font-semibold">Original PDF</label>
-              <FileUploadStyled onFilesSelected={(f) => setOldPdf(f[0])} />
-              {oldPdf && <p className="text-xs text-green-600">✓ {oldPdf.name}</p>}
-            </div>
-            <div className="space-y-2">
-              <label className="text-sm font-semibold">New PDF</label>
-              <FileUploadStyled onFilesSelected={(f) => setNewPdf(f[0])} />
-              {newPdf && <p className="text-xs text-green-600">✓ {newPdf.name}</p>}
-            </div>
-          </div>
-          <div className="mt-6 flex justify-center">
-            <Button
-              onClick={handleCompare}
-              disabled={!oldPdf || !newPdf}
-              variant="primary"
-              size="lg"
-            >
-              Compare Files
-            </Button>
-          </div>
-        </PageCard>
+ntainer >
 
-        <Comparison
-          oldFile={oldPdf}
-          newFile={newPdf}
-          oldText={oldText}
-          newText={newText}
-          showPopup={showComparePopup}
-          onClose={() => setShowComparePopup(false)}
-          onRunOcr={async () => { }}
-          ocrLoading={ocrLoading}
-          ocrError={ocrError}
-        />
-      </Container>
-    );
-  };
 
-// Extract Text Page
-const ExtractTextPage: React.FC<{
-  onBack: () => void;
-  extractFile: File | null;
-  setExtractFile: React.Dispatch<React.SetStateAction<File | null>>;
-}> = ({ extractFile, setExtractFile }) => (
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <PageCard title="Extract Text - Upload and Extract" icon={<FaFileImage />}>
-      <TextFileUpload file={extractFile} onFileChange={setExtractFile} />
-      <TextExtractor file={extractFile} />
-    </PageCard>
-  </div>
-);
 
-export default App;
+  xtract Text Page
+t ExtractTextPage: React.FC<{
+    ck: () => void;
+    actFile: File | null;
+    xtractFile: React.Dispatch<React.SetStateAction<File | null>>;
+    ({ extractFile, setExtractFile }) => (
+      className = "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" >
+        eCard title = "Extract Text - Upload and Extract" icon = {< FaFileImage />}>
+      tFileUpload file = { extractFile } onFileChange = { setExtractFile } />
+  tExtractor file = { extractFile } />
+    geCard >
+    v >
+
+
+    rt default App;
