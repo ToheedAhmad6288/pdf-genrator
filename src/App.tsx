@@ -1,97 +1,31 @@
 // App.tsx
 import React, { useState } from "react";
-import { PDFDocument, degrees } from "pdf-lib";
-import { saveAs } from "file-saver";
-import {
-  FaFileImage,
-  FaFilePdf,
-  FaCompress,
-  FaCode,
-  FaWater,
-  FaSyncAlt,
-  FaCut,
-  FaListOl,
-  FaExchangeAlt,
-} from "react-icons/fa";
 
 // --- COMPONENT IMPORTS ---
-import RotateControls from "./components/Rotate/components/Control";
-import HtmlPreview from "./components/Html.Pdf/components/preview";
-import HtmlDownloadButton from "./components/Html.Pdf/components/Button";
-import WatermarkControls from "./components/WaterMark.Pdf/components/Watermark";
-import PreviewPDF from "./components/WaterMark.Pdf/components/View";
-import DownloadButton from "./components/WaterMark.Pdf/components/Download";
-import FileUpload from "./components/Number.Pdf/components/file";
-import PageNumberSettings from "./components/Number.Pdf/components/number";
-import AddPageNumbersButton from "./components/Number.Pdf/components/btn";
-import Comparison from "./components/Pdf.Compare/components/Comparison";
-import TextFileUpload from "./components/ExtractText/components/FileUpload";
-import TextExtractor from "./components/ExtractText/components/TextExtractor";
 import CompressPdfPage from "./components/CompressPdf/CompressPdfPage";
-import JpgPdfPage from "./components/JPG.PDF/JpgPdfPage";
-import "./App.css";
-import FileUpload4 from "./components/DoublePdf/components/FileUpload1";
-import MergeButton1 from "./components/DoublePdf/components/MergeButton";
+import JpgPdfPage from "./components/JpgToPdf/JpgPdfPage";
+import SplitPdfPage from "./components/SPLIT.PDF/SplitPdfPage";
+import MergePdfPage from "./components/DoublePdf/MergePdfPage";
 import FeaturesGrid from "./components/FeaturesGrid";
 import About from "./components/About";
-// --- PDF.js WORKER SETUP (v3.x) ---
-import * as pdfjsLib from "pdfjs-dist";
+import Navbar from "./components/Navbar";
 
-// @ts-ignore
-pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+// --- TOOL PAGE COMPONENTS ---
+import RotatePdfPage from "./components/Rotate/RotatePdfPage";
+import HtmlToPdfPage from "./components/Html.Pdf/HtmlToPdfPage";
+import WatermarkPdfPage from "./components/WaterMark.Pdf/WatermarkPdfPage";
+import PageNumbersPage from "./components/Number.Pdf/PageNumbersPage";
+import ComparePdfsPage from "./components/Pdf.Compare/ComparePdfsPage";
+import ExtractTextPage from "./components/ExtractText/ExtractTextPage";
+
 // --- UI COMPONENTS ---
 import {
   Container,
   Section,
-  Heading,
-  Text,
   Button,
-  Input,
 } from "./components/UI";
-import {
-  FileUploadStyled,
-  Modal,
-} from "./components/UIComponents";
 
-import Navbar from "./components/Navbar";
-// --- PAGE COMPONENTS ---
-
-// -------------------------------------------
-// ------------ MAIN APP COMPONENT -----------
-// -------------------------------------------
-
-// -------------------------------------------
-// ------------ HELPER COMPONENTS ------------
-// -------------------------------------------
-
-
-
-const PageCard: React.FC<{
-  title: string;
-  icon: React.ReactNode;
-  children: React.ReactNode;
-}> = ({ title, icon, children }) => (
-  <div className="animate-fade-in-up w-full max-w-7xl mx-auto">
-    {/* Page Header */}
-    <div className="flex items-center gap-4 mb-8">
-      <div className="p-3.5 bg-white shadow-md rounded-2xl text-primary-600 text-2xl border border-gray-100">
-        {icon}
-      </div>
-      <div>
-        <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 tracking-tight">{title}</h2>
-        <p className="text-gray-500 text-sm font-medium mt-1">Professional PDF Tool</p>
-      </div>
-    </div>
-
-    {/* Content Area */}
-    <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-xl border border-white/60 p-6 sm:p-8 lg:p-10 relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-primary-50/50 to-secondary-50/50 rounded-full blur-3xl -z-10" />
-      {children}
-    </div>
-  </div>
-);
-
-
+import "./App.css";
 
 const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<
@@ -109,60 +43,6 @@ const App: React.FC = () => {
     | "features"
     | "about"
   >("home");
-  //Merge
-  // Merge PDF state
-  const [mergeFiles, setMergeFiles] = useState<File[]>([]);
-  // Rotate
-  const [rotateFile, setRotateFile] = useState<File | null>(null);
-  const [rotations, setRotations] = useState<number[]>([]);
-  const [loading, setLoading] = useState(false);
-  //split
-  // Split PDF state
-  const [uploadFile, setUploadFile] = useState<File[]>([]);
-  const [totalPages, setTotalPages] = useState<number>(0);
-  const [selectedPages, setSelectedPages] = useState<string>("");
-
-  // HTML → PDF
-  const [htmlContent, setHtmlContent] = useState<string>("");
-
-  // Watermark
-  const [watermarkFile, setWatermarkFile] = useState<File | null>(null);
-  const [watermarkOptions, setWatermarkOptions] = useState({
-    text: "Watermark",
-    fontSize: 30,
-    color: "#000000",
-    opacity: 0.3,
-    position: "center" as
-      | "top-left"
-      | "top-right"
-      | "center"
-      | "bottom-left"
-      | "bottom-right",
-  });
-
-  // Page Numbering
-  const [pdfFile, setPdfFile] = useState<File | null>(null);
-  const [position, setPosition] = useState<string>("bottom-right");
-  const [fontSize, setFontSize] = useState<number>(12);
-  const [startPage, setStartPage] = useState<number>(1);
-  const [endPage, setEndPage] = useState<number>(1);
-
-  // PDF Compare
-  const [oldPdf, setOldPdf] = useState<File | null>(null);
-  const [newPdf, setNewPdf] = useState<File | null>(null);
-  const [oldText, setOldText] = useState("");
-  const [newText, setNewText] = useState("");
-  const [showComparePopup, setShowComparePopup] = useState(false);
-  const [ocrLoading, setOcrLoading] = useState(false);
-  const [ocrError, setOcrError] = useState<string | null>(null);
-
-  // Extract Text
-  const [extractFile, setExtractFile] = useState<File | null>(null);
-
-  // -------------------------------------------
-  // ------------- HANDLERS ---------------------
-  // -------------------------------------------
-
 
   return (
     <div className="min-h-screen bg-[#FAFAFA] relative overflow-hidden font-sans selection:bg-primary-100 selection:text-primary-900">
@@ -179,7 +59,6 @@ const App: React.FC = () => {
       <main className="pt-0 pb-8 sm:pt-4 sm:pb-12 md:pt-8 md:pb-16 relative z-10">
         {currentPage === "home" ? (
           <>
-            {/* Hero Section */}
             <Section className="!pt-4 !pb-10 sm:!pt-12 sm:!pb-16 text-center relative pointer-events-none">
               <div className="pointer-events-auto relative z-10">
                 <div className="inline-flex items-center gap-2 mb-4 px-3 py-1.5 bg-white/60 backdrop-blur-md rounded-full shadow-sm border border-white/50 animate-fadeIn">
@@ -205,8 +84,6 @@ const App: React.FC = () => {
                 </p>
               </div>
             </Section>
-
-            {/* Main Grid */}
             <FeaturesGrid setCurrentPage={setCurrentPage} />
           </>
         ) : currentPage === "features" ? (
@@ -223,24 +100,13 @@ const App: React.FC = () => {
           <About onNavigateHome={() => setCurrentPage("home")} />
         ) : (
           <>
-            {/* Page Header with Back Button */}
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 animate-fadeIn pt-8">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 animate-fadeIn pt-8 border-b border-gray-100 pb-4">
               <Button
                 variant="outline"
                 onClick={() => setCurrentPage("home")}
                 icon={
-                  <svg
-                    className="w-4 h-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M15 19l-7-7 7-7"
-                    />
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                   </svg>
                 }
               >
@@ -248,231 +114,25 @@ const App: React.FC = () => {
               </Button>
             </div>
 
-            {/* Service Pages */}
             <div key={currentPage} className="animate-fade-in-up">
-              {currentPage === "jpg-pdf" && (
-                <Container>
-                  <PageCard
-                    title="JPG → PDF"
-                    icon={<FaFileImage />}
-                  >
-                    <JpgPdfPage />
-                  </PageCard>
-                </Container>
-              )}
-              {currentPage === "merge" && (
-                <Container>
-                  <PageCard
-                    title="Merge PDFs"
-                    icon={<FaFilePdf />}
-                  >
-                    <FileUpload4 onFilesSelected={setMergeFiles} />
-                    <MergeButton1 files={mergeFiles} />
-                  </PageCard>
-                </Container>
-              )}
-
+              {currentPage === "jpg-pdf" && <JpgPdfPage />}
+              {currentPage === "merge" && <MergePdfPage />}
               {currentPage === "compress" && (
                 <Container>
-                  <PageCard title="Compress PDF" icon={<FaCompress />}>
-                    <CompressPdfPage />
-                  </PageCard>
+                  <CompressPdfPage />
                 </Container>
               )}
               {currentPage === "split" && (
                 <Container>
-                  <PageCard
-                    title="Split PDF"
-                    icon={<FaCut />}
-                  >
-                    {/* Upload File */}
-                    <div className="space-y-6">
-                      <Input
-                        type="file"
-                        label="Upload PDF"
-                        accept="application/pdf"
-                        onChange={async (e) => {
-                          if (!e.target.files || e.target.files.length === 0)
-                            return;
-                          const file = e.target.files[0];
-                          setUploadFile([file]);
-
-                          // Load pages count
-                          const arrayBuffer = await file.arrayBuffer();
-                          const pdf = await PDFDocument.load(arrayBuffer);
-                          setTotalPages(pdf.getPageCount());
-                        }}
-                      />
-
-                      {/* Show Uploaded File */}
-                      {uploadFile.length > 0 && (
-                        <div className="bg-blue-50 p-4 rounded-lg border border-blue-100 text-blue-800">
-                          <p className="font-medium">Selected File: {uploadFile[0].name}</p>
-                          {totalPages > 0 && (
-                            <p className="text-sm mt-1">Total Pages: <b>{totalPages}</b></p>
-                          )}
-                        </div>
-                      )}
-
-                      {/* Page Selection */}
-                      {totalPages > 0 && (
-                        <Input
-                          type="text"
-                          label="Select Pages to Extract"
-                          placeholder="e.g. 1,2,5 or 3-7"
-                          onChange={(e) => setSelectedPages(e.target.value)}
-                          helperText="Enter page numbers (e.g., 1, 5) or ranges (e.g., 2-4)"
-                        />
-                      )}
-
-                      {/* Download Button */}
-                      <div className="pt-2">
-                        <Button
-                          fullWidth
-                          onClick={async () => {
-                            if (!uploadFile.length)
-                              return alert("Upload a PDF first!");
-                            if (!selectedPages) return alert("Enter pages to split!");
-
-                            const file = uploadFile[0];
-                            const arrayBuffer = await file.arrayBuffer();
-                            const pdfDoc = await PDFDocument.load(arrayBuffer);
-
-                            // New PDF
-                            const newPdf = await PDFDocument.create();
-
-                            // Parse pages
-                            let pagesToExtract: number[] = [];
-
-                            selectedPages.split(",").forEach((part) => {
-                              if (part.includes("-")) {
-                                const [start, end] = part.split("-").map(Number);
-                                for (let p = start; p <= end; p++)
-                                  pagesToExtract.push(p);
-                              } else {
-                                pagesToExtract.push(Number(part));
-                              }
-                            });
-
-                            // Remove invalid + duplicates
-                            pagesToExtract = Array.from(
-                              new Set(
-                                pagesToExtract.filter(
-                                  (p) => p >= 1 && p <= totalPages
-                                )
-                              )
-                            );
-
-                            if (pagesToExtract.length === 0) {
-                              return alert("No valid pages selected!");
-                            }
-
-                            // Copy pages into new PDF
-                            const copied = await newPdf.copyPages(
-                              pdfDoc,
-                              pagesToExtract.map((p) => p - 1)
-                            );
-                            copied.forEach((page) => newPdf.addPage(page));
-
-                            const pdfBytes = await newPdf.save();
-
-                            saveAs(
-                              new Blob([pdfBytes as any], { type: "application/pdf" }),
-                              "extracted_pages.pdf"
-                            );
-                          }}
-                          className="bg-gradient-to-br from-orange-400 to-red-500 hover:from-orange-500 hover:to-red-600 shadow-orange-200 text-white"
-                        >
-                          Download Selected Pages
-                        </Button>
-                      </div>
-                    </div>
-                  </PageCard>
+                  <SplitPdfPage />
                 </Container>
               )}
-
-              {currentPage === "rotate" && (
-                <Container>
-                  <RotatePdfPage
-                    onBack={() => setCurrentPage("home")}
-                    rotateFile={rotateFile}
-                    setRotateFile={setRotateFile}
-                    totalPages={totalPages}
-                    setTotalPages={setTotalPages}
-                    rotations={rotations}
-                    setRotations={setRotations}
-                    loading={loading}
-                    setLoading={setLoading}
-                  />
-                </Container>
-              )}
-              {currentPage === "html-pdf" && (
-                <Container>
-                  <HtmlToPdfPage
-                    onBack={() => setCurrentPage("home")}
-                    htmlContent={htmlContent}
-                    setHtmlContent={setHtmlContent}
-                  />
-                </Container>
-              )}
-              {currentPage === "watermark" && (
-                <Container>
-                  <WatermarkPdfPage
-                    onBack={() => setCurrentPage("home")}
-                    watermarkFile={watermarkFile}
-                    setWatermarkFile={setWatermarkFile}
-                    watermarkOptions={watermarkOptions}
-                    setWatermarkOptions={setWatermarkOptions}
-                  />
-                </Container>
-              )}
-              {currentPage === "page-numbers" && (
-                <Container>
-                  <PageNumbersPage
-                    onBack={() => setCurrentPage("home")}
-                    pdfFile={pdfFile}
-                    setPdfFile={setPdfFile}
-                    position={position}
-                    setPosition={setPosition}
-                    fontSize={fontSize}
-                    setFontSize={setFontSize}
-                    startPage={startPage}
-                    setStartPage={setStartPage}
-                    endPage={endPage}
-                    setEndPage={setEndPage}
-                  />
-                </Container>
-              )}
-              {currentPage === "compare" && (
-                <Container>
-                  <ComparePdfsPage
-                    onBack={() => setCurrentPage("home")}
-                    oldPdf={oldPdf}
-                    setOldPdf={setOldPdf}
-                    newPdf={newPdf}
-                    setNewPdf={setNewPdf}
-                    oldText={oldText}
-                    setOldText={setOldText}
-                    newText={newText}
-                    setNewText={setNewText}
-                    showComparePopup={showComparePopup}
-                    setShowComparePopup={setShowComparePopup}
-                    ocrLoading={ocrLoading}
-                    setOcrLoading={setOcrLoading}
-                    ocrError={ocrError}
-                    setOcrError={setOcrError}
-                  />
-                </Container>
-              )}
-              {currentPage === "extract-text" && (
-                <Container>
-                  <ExtractTextPage
-                    onBack={() => setCurrentPage("home")}
-                    extractFile={extractFile}
-                    setExtractFile={setExtractFile}
-                  />
-                </Container>
-              )}
+              {currentPage === "rotate" && <RotatePdfPage />}
+              {currentPage === "html-pdf" && <HtmlToPdfPage />}
+              {currentPage === "watermark" && <WatermarkPdfPage />}
+              {currentPage === "page-numbers" && <PageNumbersPage />}
+              {currentPage === "compare" && <ComparePdfsPage />}
+              {currentPage === "extract-text" && <ExtractTextPage />}
             </div>
           </>
         )}
@@ -481,6 +141,7 @@ const App: React.FC = () => {
   );
 };
 
+<<<<<<< HEAD
 // -------------------------------------------
 const RotatePdfPage: React.FC<{
   onBack: () => void;
@@ -850,3 +511,6 @@ t ExtractTextPage: React.FC<{
 
 
     rt default App;
+=======
+export default App;
+>>>>>>> c734a41ceb272cae3d4fb1332fa6c94aa0d3d96d
