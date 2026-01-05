@@ -64,13 +64,13 @@ const TextExtractor: React.FC<TextExtractorProps> = ({ file }) => {
               w-full font-bold py-5 px-8 rounded-2xl transition-all duration-300 shadow-xl flex items-center justify-center gap-4 relative overflow-hidden group/btn
               ${loading
                 ? 'bg-neutral-100 text-neutral-400 cursor-not-allowed'
-                : 'bg-gradient-to-r from-success-600 via-success-500 to-success-600 text-white shadow-success-500/25 hover:shadow-success-500/40 hover:-translate-y-1 active:scale-95'
+                : 'bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 text-white shadow-indigo-200/25 hover:shadow-indigo-300 hover:-translate-y-1 active:scale-95'
               }
             `}
           >
             {loading ? (
               <>
-                <div className="w-5 h-5 border-3 border-success-500 border-t-transparent rounded-full animate-spin"></div>
+                <div className="w-5 h-5 border-3 border-indigo-400 border-t-transparent rounded-full animate-spin"></div>
                 <span className="animate-pulse">Analyzing Document...</span>
               </>
             ) : (
@@ -82,8 +82,8 @@ const TextExtractor: React.FC<TextExtractorProps> = ({ file }) => {
           </button>
 
           {loading && (
-            <div className="mt-4 h-1.5 w-full bg-success-100 rounded-full overflow-hidden">
-              <div className="h-full bg-success-500 animate-[progress_2s_ease-in-out_infinite] w-1/3 origin-left"></div>
+            <div className="mt-4 h-1.5 w-full bg-indigo-100 rounded-full overflow-hidden">
+              <div className="h-full bg-indigo-500 animate-[progress_2s_ease-in-out_infinite] w-1/3 origin-left"></div>
             </div>
           )}
         </div>
@@ -99,15 +99,15 @@ const TextExtractor: React.FC<TextExtractorProps> = ({ file }) => {
       {extractedText && (
         <div className="space-y-6 animate-fade-in-up">
           <div className="relative group/text">
-            <div className="absolute -inset-1 bg-gradient-to-r from-success-100 to-success-50 rounded-3xl blur opacity-25 group-hover/text:opacity-50 transition duration-1000"></div>
+            <div className="absolute -inset-1 bg-gradient-to-r from-indigo-100 to-indigo-50 rounded-3xl blur opacity-25 group-hover/text:opacity-50 transition duration-1000"></div>
             <textarea
               value={extractedText}
               readOnly
-              className="relative w-full h-80 p-6 border-2 border-neutral-100 rounded-3xl bg-white/80 backdrop-blur-sm text-neutral-800 font-mono text-sm focus:ring-4 focus:ring-success-100 focus:border-success-400 transition-all resize-none shadow-inner"
+              className="relative w-full h-80 p-6 border-2 border-neutral-100 rounded-3xl bg-white/80 backdrop-blur-sm text-neutral-800 font-mono text-sm focus:ring-4 focus:border-indigo-100 transition-all resize-none shadow-inner"
               placeholder="Extracted text will appear here..."
             />
             <div className="absolute top-4 right-4 flex items-center gap-3">
-              <span className="bg-neutral-900/90 backdrop-blur-md text-white text-[11px] px-3 py-1.5 rounded-full shadow-lg uppercase font-bold tracking-widest border border-white/10">
+              <span className="bg-indigo-900/90 backdrop-blur-md text-white text-[11px] px-3 py-1.5 rounded-full shadow-lg uppercase font-bold tracking-widest border border-white/10">
                 {extractedText.length.toLocaleString()} CHARS
               </span>
             </div>
@@ -119,7 +119,7 @@ const TextExtractor: React.FC<TextExtractorProps> = ({ file }) => {
               className={`
                 flex-1 flex items-center justify-center gap-2 font-bold py-4 px-8 rounded-2xl shadow-xl transition-all hover:-translate-y-1 active:scale-95
                 ${copied
-                  ? 'bg-success-500 text-white shadow-success-500/25'
+                  ? 'bg-indigo-600 text-white shadow-indigo-200/25'
                   : 'bg-neutral-900 text-white hover:bg-black shadow-neutral-900/20'
                 }
               `}
@@ -128,7 +128,7 @@ const TextExtractor: React.FC<TextExtractorProps> = ({ file }) => {
             </button>
             <button
               onClick={downloadAsText}
-              className="flex-1 flex items-center justify-center gap-2 bg-gradient-to-r from-secondary-500 to-secondary-600 hover:from-secondary-600 hover:to-secondary-700 text-white font-bold py-4 px-8 rounded-2xl shadow-xl shadow-secondary-500/30 hover:shadow-secondary-500/40 hover:-translate-y-1 active:scale-95 transition-all"
+              className="flex-1 flex items-center justify-center gap-2 bg-gradient-to-br from-indigo-600 to-pink-600 hover:from-indigo-700 hover:to-pink-700 text-white font-bold py-4 px-8 rounded-2xl shadow-xl shadow-indigo-200/30 hover:shadow-indigo-300/40 hover:-translate-y-1 active:scale-95 transition-all"
             >
               <FaDownload /> Download .txt
             </button>

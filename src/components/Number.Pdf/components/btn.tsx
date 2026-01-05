@@ -74,7 +74,7 @@ const AddPageNumbersButton: React.FC<AddPageNumbersProps> = ({
 
   return (
     <button
-      className="mt-4 px-6 py-2.5 bg-gradient-to-br from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-white rounded-xl font-bold shadow-lg shadow-yellow-200 hover:shadow-yellow-300 transition-all duration-300 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
+      className="mt-4 px-6 py-2.5 bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 hover:from-indigo-700 hover:to-pink-700 text-white rounded-xl font-bold shadow-lg shadow-indigo-200/40 hover:shadow-indigo-300 transition-all duration-300 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
       onClick={handleAddPageNumbers}
       disabled={!pdfFile}
     >

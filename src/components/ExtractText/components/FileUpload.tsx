@@ -43,8 +43,8 @@ const FileUpload: React.FC<ExtractTextProps> = ({ file, onFileChange }) => {
         className={`
           relative border-2 border-dashed rounded-[1.5rem] p-12 text-center cursor-pointer transition-all duration-500 overflow-hidden
           ${isDragging
-            ? 'border-primary-500 bg-primary-50/50 scale-[1.02] shadow-2xl shadow-primary-200/50'
-            : 'border-neutral-200 bg-white/50 hover:border-primary-400 hover:bg-white hover:shadow-xl hover:shadow-neutral-200/50'
+            ? 'border-indigo-500 bg-indigo-50/50 scale-[1.02] shadow-2xl shadow-indigo-200/50'
+            : 'border-neutral-200 bg-white/50 hover:border-indigo-400 hover:bg-white hover:shadow-xl hover:shadow-neutral-200/50'
           }
         `}
       >
@@ -58,8 +58,8 @@ const FileUpload: React.FC<ExtractTextProps> = ({ file, onFileChange }) => {
         <div className={`
           mx-auto mb-6 w-24 h-24 rounded-3xl flex items-center justify-center transition-all duration-700
           ${isDragging
-            ? 'bg-primary-600 text-black rotate-[15deg] scale-110 shadow-2xl shadow-primary-500/40'
-            : 'bg-primary-50 text-primary-600 group-hover:rotate-6'
+            ? 'bg-indigo-600 text-black rotate-[15deg] scale-110 shadow-2xl shadow-indigo-500/40'
+            : 'bg-indigo-50 text-indigo-600 group-hover:rotate-6'
           }
         `}>
           <FaFile className="text-4xl" />
@@ -82,7 +82,7 @@ const FileUpload: React.FC<ExtractTextProps> = ({ file, onFileChange }) => {
           />
           <label
             htmlFor="pdf-upload"
-            className="inline-flex items-center px-8 py-4 rounded-2xl bg-gradient-to-r from-neutral-900 via-neutral-800 to-neutral-900 text-white font-bold shadow-xl shadow-neutral-900/20 hover:shadow-primary-500/30 hover:scale-105 hover:-translate-y-1 active:scale-95 transition-all cursor-pointer"
+            className="inline-flex items-center px-8 py-4 rounded-2xl bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 text-white font-bold shadow-xl shadow-indigo-200/30 hover:shadow-indigo-300 hover:scale-105 hover:-translate-y-1 active:scale-95 transition-all cursor-pointer"
           >
             Select File
           </label>
@@ -95,8 +95,8 @@ const FileUpload: React.FC<ExtractTextProps> = ({ file, onFileChange }) => {
 
       {file && (
         <div className="mt-8 animate-fade-in-up">
-          <div className="bg-success-50/50 backdrop-blur-sm p-4 rounded-2xl border border-success-100 flex items-center gap-4 group/file transition-all hover:bg-success-50">
-            <div className="w-12 h-12 rounded-xl bg-success-500 flex items-center justify-center text-white shadow-lg shadow-success-500/20">
+            <div className="bg-success-50/50 backdrop-blur-sm p-4 rounded-2xl border border-success-100 flex items-center gap-4 group/file transition-all hover:bg-success-50">
+            <div className="w-12 h-12 rounded-xl bg-indigo-600 flex items-center justify-center text-white shadow-lg shadow-indigo-200/20">
               <FaFile />
             </div>
             <div className="flex-1 min-w-0">

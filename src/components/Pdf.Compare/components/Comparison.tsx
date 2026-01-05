@@ -46,7 +46,7 @@ const Comparison: React.FC<ComparisonProps> = ({
           ✕
         </button>
 
-        <h3 className="text-xl font-bold text-center mt-4 text-indigo-700">
+        <h3 className="text-xl font-bold text-center mt-4 text-indigo-700 drop-shadow-sm">
           PDF Comparison Result
         </h3>
 
@@ -73,7 +73,7 @@ const Comparison: React.FC<ComparisonProps> = ({
         <div className="flex flex-1 mt-4 overflow-auto">
           {/* Old File */}
           <div className="w-1/2 border-r p-4 overflow-y-auto">
-            <h4 className="text-center font-semibold mb-2 text-red-600">
+            <h4 className="text-center font-semibold mb-2 text-indigo-600">
               Old File: {oldFile?.name}
             </h4>
             {oldText ? (
@@ -100,7 +100,7 @@ const Comparison: React.FC<ComparisonProps> = ({
 
           {/* New File */}
           <div className="w-1/2 p-4 overflow-y-auto">
-            <h4 className="text-center font-semibold mb-2 text-green-600">
+            <h4 className="text-center font-semibold mb-2 text-indigo-600">
               New File: {newFile?.name}
             </h4>
             {newText ? (
@@ -132,7 +132,7 @@ const Comparison: React.FC<ComparisonProps> = ({
             <button
               onClick={() => onRunOcr("both")}
               disabled={ocrLoading}
-              className="px-6 py-2.5 bg-gradient-to-br from-fuchsia-500 to-pink-600 hover:from-fuchsia-600 hover:to-pink-700 text-white rounded-xl font-bold shadow-lg shadow-fuchsia-200 transition-all hover:-translate-y-0.5"
+              className="px-6 py-2.5 bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 hover:from-indigo-700 hover:to-pink-700 text-white rounded-xl font-bold shadow-lg shadow-indigo-200 transition-all hover:-translate-y-0.5"
             >
               {ocrLoading ? "Running OCR on both..." : "Run OCR on Both PDFs"}
             </button>
@@ -142,13 +142,13 @@ const Comparison: React.FC<ComparisonProps> = ({
         <div className="p-4 flex justify-center gap-4 border-t">
           <button
             onClick={() => downloadFile(oldFile)}
-            className="bg-gradient-to-br from-red-500 to-rose-600 hover:from-red-600 hover:to-rose-700 text-white px-6 py-2.5 rounded-xl font-bold shadow-lg shadow-red-200 transition-all hover:-translate-y-0.5"
+            className="bg-gradient-to-br from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white px-6 py-2.5 rounded-xl font-bold shadow-lg shadow-indigo-200 transition-all hover:-translate-y-0.5"
           >
             Download Old
           </button>
           <button
             onClick={() => downloadFile(newFile)}
-            className="bg-gradient-to-br from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white px-6 py-2.5 rounded-xl font-bold shadow-lg shadow-emerald-200 transition-all hover:-translate-y-0.5"
+            className="bg-gradient-to-br from-indigo-500 to-pink-600 hover:from-indigo-600 hover:to-pink-700 text-white px-6 py-2.5 rounded-xl font-bold shadow-lg shadow-indigo-200 transition-all hover:-translate-y-0.5"
           >
             Download New
           </button>

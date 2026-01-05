@@ -22,10 +22,14 @@ const PageNumberSettings: React.FC<SettingsProps> = ({
   setEndPage,
 }) => {
   return (
-    <div style={{ margin: "10px 0" }}>
-      <div>
-        <label className="border-2">Position: </label>
-        <select value={position} onChange={(e) => setPosition(e.target.value)}>
+    <div className="space-y-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">
+        <label className="text-sm font-medium text-neutral-700">Position</label>
+        <select
+          value={position}
+          onChange={(e) => setPosition(e.target.value)}
+          className="w-full px-3 py-2 rounded-lg border border-neutral-200 bg-white/80"
+        >
           <option value="top-left">Top Left</option>
           <option value="top-right">Top Right</option>
           <option value="bottom-left">Bottom Left</option>
@@ -34,29 +38,29 @@ const PageNumberSettings: React.FC<SettingsProps> = ({
         </select>
       </div>
 
-      <div>
-        <label >Font Size: </label>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">
+        <label className="text-sm font-medium text-neutral-700">Font Size</label>
         <input
           type="number"
           value={fontSize}
           min={8}
           max={100}
           onChange={(e) => setFontSize(parseInt(e.target.value))}
+          className="w-full px-3 py-2 rounded-lg border border-neutral-200"
         />
       </div>
 
-      <div>
-        <label>Page Range: </label>
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
+        <label className="text-sm font-medium text-neutral-700">Page Range</label>
         <input
-        className="border-2"
+          className="w-full px-3 py-2 rounded-lg border border-neutral-200"
           type="number"
           value={startPage}
           min={1}
           onChange={(e) => setStartPage(parseInt(e.target.value))}
         />
-        -
         <input
-        className="border-2 mt-2"
+          className="w-full px-3 py-2 rounded-lg border border-neutral-200"
           type="number"
           value={endPage}
           min={1}
