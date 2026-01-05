@@ -10,16 +10,17 @@ const HtmlToPdfPage: React.FC<HtmlToPdfPageProps> = () => {
     const [htmlContent, setHtmlContent] = React.useState<string>("");
 
     return (
-        <div className="relative min-h-[calc(100vh-4rem)]">
-            {/* Decorative Background Elements */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-full -z-10 opacity-30 pointer-events-none">
-                <div className="absolute top-20 -left-20 w-96 h-96 bg-primary-200 rounded-full blur-3xl animate-pulse"></div>
-                <div className="absolute bottom-20 -right-20 w-96 h-96 bg-secondary-200 rounded-full blur-3xl animate-pulse delay-700"></div>
-            </div>
+        <div className="relative min-h-[calc(100vh-4rem)] bg-emerald-50">
+                {/* Decorative Background Elements - distinct emerald/teal/cyan combo */}
+                <div className="fixed inset-0 -z-10 bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-100">
+                    <div className="absolute top-[-8%] left-[-8%] w-[48%] h-[48%] bg-emerald-200/40 rounded-full blur-[80px] animate-pulse mix-blend-multiply" />
+                    <div className="absolute bottom-[-8%] right-[-8%] w-[48%] h-[48%] bg-cyan-200/40 rounded-full blur-[80px] animate-pulse delay-700 mix-blend-multiply" />
+                    <div className="absolute top-[40%] left-[40%] w-[38%] h-[38%] bg-teal-200/40 rounded-full blur-[100px] animate-pulse delay-1000 mix-blend-overlay" />
+                </div>
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10 animate-fade-in-up">
                 <div className="text-center mb-12">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-50 border border-primary-100 text-primary-600 text-sm font-bold mb-6 hover:bg-primary-100 transition-colors cursor-default">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-100 text-emerald-600 text-sm font-bold mb-6 hover:bg-emerald-100 transition-colors cursor-default">
                         <span className="relative flex h-2 w-2">
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-400 opacity-75"></span>
                             <span className="relative inline-flex rounded-full h-2 w-2 bg-primary-500"></span>
@@ -27,7 +28,7 @@ const HtmlToPdfPage: React.FC<HtmlToPdfPageProps> = () => {
                         DEVELOP
                     </div>
                     <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 leading-tight">
-                        <span className="inline-block bg-gradient-to-r from-primary-600 via-primary-500 to-secondary-600 bg-clip-text text-transparent py-1">
+                        <span className="inline-block bg-gradient-to-r from-emerald-600 via-teal-500 to-cyan-600 bg-clip-text text-transparent py-1">
                             HTML to PDF
                         </span>
                         <span className="text-neutral-900 ml-3">Parser</span>
@@ -40,9 +41,9 @@ const HtmlToPdfPage: React.FC<HtmlToPdfPageProps> = () => {
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
                     {/* Left Column - Input */}
                     <div className="lg:col-span-5 space-y-8">
-                        <div className="group bg-white/70 backdrop-blur-xl p-8 rounded-[2rem] border border-white shadow-2xl shadow-neutral-200/50 transition-all hover:shadow-primary-100/30">
+                        <div className="group bg-white/70 backdrop-blur-xl p-8 rounded-[2rem] border border-white shadow-2xl shadow-neutral-200/50 transition-all hover:shadow-emerald-100/30">
                             <div className="flex items-center gap-4 mb-8">
-                                <div className="w-12 h-12 rounded-2xl bg-primary-600 flex items-center justify-center shadow-lg shadow-primary-500/30 group-hover:scale-110 transition-transform">
+                                <div className="w-12 h-12 rounded-2xl bg-emerald-600 flex items-center justify-center shadow-lg shadow-emerald-500/30 group-hover:scale-105 transition-transform">
                                     <FaCode className="text-white text-xl" />
                                 </div>
                                 <div>
@@ -57,11 +58,11 @@ const HtmlToPdfPage: React.FC<HtmlToPdfPageProps> = () => {
                     </div>
 
                     {/* Right Column - Result */}
-                    <div className="lg:col-span-7 space-y-8">
+                        <div className="lg:col-span-7 space-y-8">
                         <div className="bg-white/70 backdrop-blur-xl p-8 rounded-[2rem] border border-white shadow-2xl shadow-neutral-200/50 relative overflow-hidden group">
-                            <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-primary-500 via-primary-400 to-secondary-500"></div>
+                            <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-teal-500 via-emerald-400 to-cyan-500"></div>
                             <div className="flex items-center gap-4 mb-8">
-                                <div className="w-12 h-12 rounded-2xl bg-secondary-500 flex items-center justify-center shadow-lg shadow-secondary-500/30 group-hover:scale-110 transition-transform">
+                                <div className="w-12 h-12 rounded-2xl bg-cyan-500 flex items-center justify-center shadow-lg shadow-cyan-500/30 group-hover:scale-105 transition-transform">
                                     <span className="text-white font-bold text-xl">2</span>
                                 </div>
                                 <div>

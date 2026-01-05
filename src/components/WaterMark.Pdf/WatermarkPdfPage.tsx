@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FaWater } from "react-icons/fa";
-import { Heading, FileUploadStyled, Modal } from "../UI";
+import { Heading, FileUploadStyled } from "../UI";
 import WatermarkControls from "./components/Watermark";
 import PreviewPDF from "./components/View";
 import DownloadButton from "./components/Download";
@@ -26,92 +26,100 @@ const WatermarkPdfPage: React.FC<WatermarkPdfPageProps> = () => {
     const [showWatermarkPopup, setShowWatermarkPopup] = useState(false);
 
     return (
-        <div className="relative min-h-[calc(100vh-4rem)]">
-            {/* Decorative Background Elements */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-full -z-10 opacity-30 pointer-events-none">
-                <div className="absolute top-20 -left-20 w-96 h-96 bg-primary-200 rounded-full blur-3xl animate-pulse"></div>
-                <div className="absolute bottom-20 -right-20 w-96 h-96 bg-secondary-200 rounded-full blur-3xl animate-pulse delay-700"></div>
+        <div className="relative min-h-[calc(100vh-4rem)] overflow-hidden">
+            {/* Dynamic Background */}
+            <div className="fixed inset-0 -z-10 bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-100">
+                <div className="absolute top-0 left-0 w-full h-full overflow-hidden">
+                    <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-indigo-200/40 rounded-full blur-[100px] animate-pulse mix-blend-multiply" />
+                    <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-fuchsia-200/40 rounded-full blur-[100px] animate-pulse delay-700 mix-blend-multiply" />
+                </div>
+                <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-[0.03] mix-blend-overlay"></div>
             </div>
 
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10 animate-fade-in-up">
-                <div className="text-center mb-12">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-50 border border-primary-100 text-primary-600 text-sm font-bold mb-6 hover:bg-primary-100 transition-colors cursor-default">
-                        <span className="relative flex h-2 w-2">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-400 opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-2 w-2 bg-primary-500"></span>
+            <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+                <div className="text-center mb-10 animate-fade-in-up">
+                    <div className="inline-flex items-center justify-center p-1 font-semibold text-neutral-800 bg-white/80 backdrop-blur-md rounded-full border border-white/50 shadow-sm animate-fade-in-scale delay-300 ring-1 ring-neutral-100">
+                        <span className="px-3 py-0.5 text-[10px] font-bold tracking-wide uppercase text-white bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full shadow-inner">
+                            Tool
                         </span>
-                        BRAND
+                        <span className="ml-2 text-xs text-neutral-600 pr-3">Watermark</span>
                     </div>
-                    <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 leading-tight">
-                        <span className="inline-block bg-gradient-to-r from-primary-600 via-primary-500 to-secondary-600 bg-clip-text text-transparent py-1">
-                            Watermark
+
+                    <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4 leading-tight drop-shadow-sm">
+                        <span className="inline-block bg-gradient-to-r from-neutral-800 via-neutral-700 to-neutral-800 bg-clip-text text-transparent">
+                            Watermark PDF
                         </span>
-                        <span className="text-neutral-900 ml-3">PDF</span>
+                        <span className="block mt-1 text-indigo-600">Personalize & Protect</span>
                     </h1>
-                    <p className="text-neutral-600 max-w-2xl mx-auto text-lg leading-relaxed">
-                        Protect and personalize your documents by adding custom text or image watermarks with full control.
+
+                    <p className="max-w-xl mx-auto text-base text-neutral-500 leading-relaxed font-medium">
+                        Add custom text watermarks to your documents with control over position, size and opacity.
                     </p>
                 </div>
 
-                <div className="max-w-3xl mx-auto">
-                    <div className="group bg-white/70 backdrop-blur-xl p-8 rounded-[2rem] border border-white shadow-2xl shadow-neutral-200/50 transition-all hover:shadow-primary-100/30">
-                        <div className="flex items-center gap-4 mb-8">
-                            <div className="w-12 h-12 rounded-2xl bg-primary-600 flex items-center justify-center shadow-lg shadow-primary-500/30 group-hover:scale-110 transition-transform">
-                                <FaWater className="text-white text-xl" />
-                            </div>
-                            <div>
-                                <h3 className="text-xl font-bold text-neutral-900">Upload PDF</h3>
-                                <p className="text-neutral-500 text-sm font-medium">Add watermark to your document</p>
+                <div className={`grid grid-cols-1 gap-6 transition-all duration-500 ease-in-out ${watermarkFile ? "lg:grid-cols-12" : "max-w-3xl mx-auto"}`}>
+                    <div className={`transition-all duration-500 ${watermarkFile ? "lg:col-span-5" : "w-full"}`}>
+                        <div className="bg-white/40 backdrop-blur-2xl p-1 rounded-[2rem] shadow-2xl shadow-indigo-200/40 border border-white/60 ring-1 ring-white/60">
+                            <div className="bg-white/50 rounded-[1.8rem] p-6 border border-white/50">
+                                <div className="flex items-center gap-4 mb-6">
+                                    <div className="w-12 h-12 rounded-2xl bg-primary-600 flex items-center justify-center shadow-lg shadow-primary-500/30">
+                                        <FaWater className="text-white text-xl" />
+                                    </div>
+                                    <div>
+                                        <h3 className="text-xl font-bold text-neutral-900">Upload PDF</h3>
+                                        <p className="text-neutral-500 text-sm font-medium">Select a PDF to watermark</p>
+                                    </div>
+                                </div>
+
+                                <FileUploadStyled
+                                    onFilesSelected={(f) => {
+                                        setWatermarkFile(f[0]);
+                                        setShowWatermarkPopup(true);
+                                    }}
+                                />
+
+                                {!watermarkFile && (
+                                    <div className="mt-6 grid grid-cols-3 gap-3 text-center">
+                                        {[{ label: "Local", desc: "Processed locally", icon: "🔒", color: "bg-emerald-50 text-emerald-600" }, { label: "Fast", desc: "Instant preview", icon: "⚡", color: "bg-amber-50 text-amber-600" }, { label: "Control", desc: "Customize watermark", icon: "✨", color: "bg-rose-50 text-rose-600" }].map((item, idx) => (
+                                            <div key={idx} className={`p-2.5 rounded-xl border border-white/60 shadow-sm transition-transform hover:scale-105 ${item.color}`}>
+                                                <div className="text-lg mb-1">{item.icon}</div>
+                                                <div className="font-bold text-sm">{item.label}</div>
+                                                <div className="text-[10px] opacity-80 font-medium">{item.desc}</div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
                             </div>
                         </div>
-                        <FileUploadStyled
-                            onFilesSelected={(f) => {
-                                setWatermarkFile(f[0]);
-                                setShowWatermarkPopup(true);
-                            }}
-                        />
-                        <div className="mt-8 text-center">
-                            <p className="text-neutral-500 font-medium italic text-sm">
-                                Tip: After upload, you can customize position, size and opacity.
-                            </p>
-                        </div>
+
+                        {watermarkFile && (
+                            <div className="mt-6 bg-white/50 rounded-[1.2rem] p-4 border border-white/50">
+                                <Heading level={4} className="!mb-2 font-bold text-neutral-900">Watermark Settings</Heading>
+                                <WatermarkControls options={watermarkOptions as any} onChange={setWatermarkOptions} />
+                                <div className="mt-6">
+                                    <DownloadButton file={watermarkFile} watermark={watermarkOptions as any} />
+                                </div>
+                            </div>
+                        )}
                     </div>
+
+                    {watermarkFile && (
+                        <div className="lg:col-span-7 animate-fade-in-up delay-200">
+                            <div className="h-full bg-white/40 backdrop-blur-2xl p-1 rounded-[2rem] shadow-2xl shadow-indigo-200/40 border border-white/60 ring-1 ring-white/60">
+                                <div className="h-full bg-white/50 rounded-[1.8rem] p-6 border border-white/50 flex flex-col">
+                                    <div className="flex items-center gap-3 mb-6">
+                                        <div className="w-8 h-8 rounded-lg bg-secondary-500 flex items-center justify-center text-white text-sm shadow-md">
+                                            <span className="font-bold">P</span>
+                                        </div>
+                                        <Heading level={4} className="!mb-0 font-bold text-neutral-900">Document Preview</Heading>
+                                    </div>
+                                    <PreviewPDF file={watermarkFile} watermark={watermarkOptions as any} />
+                                </div>
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
-
-            {showWatermarkPopup && watermarkFile && (
-                <Modal onClose={() => setShowWatermarkPopup(false)}>
-                    <div className="flex flex-col md:flex-row h-[80vh] bg-white rounded-3xl overflow-hidden">
-                        <div className="w-full md:w-2/3 p-8 bg-neutral-50/50 overflow-auto border-r border-neutral-100">
-                            <div className="flex items-center gap-3 mb-6">
-                                <div className="w-8 h-8 rounded-lg bg-secondary-500 flex items-center justify-center text-white text-sm shadow-md">
-                                    <span className="font-bold">P</span>
-                                </div>
-                                <Heading level={4} className="!mb-0 font-bold text-neutral-900">Document Preview</Heading>
-                            </div>
-                            <PreviewPDF file={watermarkFile} watermark={watermarkOptions as any} />
-                        </div>
-                        <div className="w-full md:w-1/3 p-8 bg-white overflow-auto">
-                            <div className="flex items-center gap-3 mb-8">
-                                <div className="w-8 h-8 rounded-lg bg-primary-500 flex items-center justify-center text-white text-sm shadow-md">
-                                    <span className="font-bold">S</span>
-                                </div>
-                                <Heading level={4} className="!mb-0 font-bold text-neutral-900">Watermark Settings</Heading>
-                            </div>
-                            <WatermarkControls
-                                options={watermarkOptions as any}
-                                onChange={setWatermarkOptions}
-                            />
-                            <div className="mt-12">
-                                <DownloadButton
-                                    file={watermarkFile}
-                                    watermark={watermarkOptions as any}
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </Modal>
-            )}
         </div>
     );
 };
