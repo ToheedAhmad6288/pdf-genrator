@@ -101,7 +101,7 @@ const App: React.FC = () => {
         ) : (
           <>
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 animate-fadeIn border-b border-gray-100 pb-4 -mt-12 ">
-              {currentPage !== "jpg-pdf" && currentPage !== "merge" && currentPage !== "compress" && (
+              {currentPage !== "jpg-pdf" && currentPage !== "merge" && currentPage !== "compress" && currentPage !== "rotate" && (
                 <Button
                   variant="outline"
                   onClick={() => setCurrentPage("home")}
@@ -121,7 +121,7 @@ const App: React.FC = () => {
               {currentPage === "merge" && <MergePdfPage onBack={() => setCurrentPage("home")} />}
               {currentPage === "compress" && <CompressPdfPage onBack={() => setCurrentPage("home")} />}
               {currentPage === "split" && <SplitPdfPage onBack={() => setCurrentPage("home")} />}
-              {currentPage === "rotate" && <RotatePdfPage />}
+              {currentPage === "rotate" && <RotatePdfPage onBack={() => setCurrentPage("home")} />}
               {currentPage === "html-pdf" && <HtmlToPdfPage />}
               {currentPage === "watermark" && <WatermarkPdfPage />}
               {currentPage === "page-numbers" && <PageNumbersPage />}

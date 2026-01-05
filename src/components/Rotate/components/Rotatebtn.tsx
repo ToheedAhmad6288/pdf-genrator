@@ -8,18 +8,20 @@ interface RotateButtonProps {
 
 const RotateButton: React.FC<RotateButtonProps> = ({ onRotateLeft, onRotateRight }) => {
   return (
-    <div className="flex gap-4 justify-center mt-2">
+    <div className="flex flex-row gap-1 w-full mt-3">
       <button
-        className="bg-gradient-to-br from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white px-4 py-2 rounded-xl flex items-center gap-2 shadow-lg shadow-blue-200 transition-all duration-300 hover:-translate-y-0.5"
+        className="flex-1 bg-white border border-emerald-200 text-emerald-700 hover:bg-emerald-50 px-2 py-2 rounded-lg flex items-center justify-center text-xs font-bold transition-all duration-200 hover:shadow-md hover:shadow-emerald-100/50 -ml-2 mr-2 h-8 w-10"
         onClick={onRotateLeft}
+        title="Rotate Left"
       >
-        <FaUndoAlt /> Left
+        <FaUndoAlt className="text-sm" /> Left
       </button>
       <button
-        className="bg-gradient-to-br from-emerald-400 to-teal-600 hover:from-emerald-500 hover:to-teal-700 text-white px-4 py-2 rounded-xl flex items-center gap-2 shadow-lg shadow-emerald-200 transition-all duration-300 hover:-translate-y-0.5"
+        className="flex-1  bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white px-2 py-2 rounded-lg flex items-center justify-center  text-xs font-bold shadow-lg shadow-emerald-500/20 transition-all duration-200 hover:shadow-emerald-500/30 hover:-translate-y-0.5 -ml-2 h-8 w-10"
         onClick={onRotateRight}
+        title="Rotate Right"
       >
-        <FaRedoAlt /> Right
+        <FaRedoAlt className="text-sm" /> Right
       </button>
     </div>
   );
