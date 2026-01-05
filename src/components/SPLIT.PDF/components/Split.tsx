@@ -56,18 +56,18 @@ const SplitComponent: React.FC<Props> = ({ file, onSplit }) => {
         Total Pages: <span className="text-blue-600">{totalPages}</span>
       </p>
 
-      <div className="flex gap-2 mt-2">
+      <div className="grid grid-cols-2 gap-4 mt-6">
         <input
           type="number"
           placeholder="Start Page"
-          className="border p-2 w-full rounded"
+          className="border border-gray-200 p-3 w-full rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-all shadow-sm bg-white/50 backdrop-blur-sm"
           value={start}
           onChange={(e) => setStart(e.target.value)}
         />
         <input
           type="number"
           placeholder="End Page"
-          className="border p-2 w-full rounded"
+          className="border border-gray-200 p-3 w-full rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-all shadow-sm bg-white/50 backdrop-blur-sm"
           value={end}
           onChange={(e) => setEnd(e.target.value)}
         />
@@ -79,7 +79,7 @@ const SplitComponent: React.FC<Props> = ({ file, onSplit }) => {
       >
         Download Selected Pages
       </button>
-    </div>
+    </div >
   );
 };
 

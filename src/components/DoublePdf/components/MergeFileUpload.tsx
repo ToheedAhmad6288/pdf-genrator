@@ -1,11 +1,12 @@
-import React, { useRef, useState } from 'react';
-import { FaCloudUploadAlt, FaImages } from 'react-icons/fa';
 
-interface FileUploadProps {
+import React, { useRef, useState } from 'react';
+import { FaCloudUploadAlt, FaFilePdf } from 'react-icons/fa';
+
+interface MergeFileUploadProps {
     onFilesSelected: (files: File[]) => void;
 }
 
-const FileUpload: React.FC<FileUploadProps> = ({ onFilesSelected }) => {
+const MergeFileUpload: React.FC<MergeFileUploadProps> = ({ onFilesSelected }) => {
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [isDragging, setIsDragging] = useState(false);
 
@@ -23,7 +24,7 @@ const FileUpload: React.FC<FileUploadProps> = ({ onFilesSelected }) => {
         e.preventDefault();
         setIsDragging(false);
         if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-            const filesArray = Array.from(e.dataTransfer.files).filter(file => file.type.startsWith('image/'));
+            const filesArray = Array.from(e.dataTransfer.files).filter(file => file.type === 'application/pdf');
             if (filesArray.length > 0) {
                 onFilesSelected(filesArray);
             }
@@ -49,7 +50,7 @@ const FileUpload: React.FC<FileUploadProps> = ({ onFilesSelected }) => {
                 onClick={handleClick}
                 className={`
                     relative group cursor-pointer 
-                    border-3 border-dashed rounded-2xl p-6
+                    border-3 border-dashed rounded-2xl p-8
                     flex flex-col items-center justify-center text-center 
                     transition-all duration-500 ease-out
                     ${isDragging
@@ -63,33 +64,33 @@ const FileUpload: React.FC<FileUploadProps> = ({ onFilesSelected }) => {
                     ref={fileInputRef}
                     type="file"
                     multiple
-                    accept="image/*"
+                    accept="application/pdf"
                     onChange={handleFileChange}
                     className="hidden"
                 />
 
                 <div className={`
-                    w-16 h-16 rounded-2xl flex items-center justify-center mb-4
+                    w-20 h-20 rounded-2xl flex items-center justify-center mb-6
                     transition-all duration-500 group-hover:scale-110 group-hover:-rotate-3 shadow-lg
                     ${isDragging ? 'bg-indigo-600 shadow-indigo-500/40 rotate-12' : 'bg-gradient-to-br from-indigo-500 to-purple-600 shadow-indigo-500/20'}
                 `}>
-                    <FaCloudUploadAlt className={`text-3xl transition-colors duration-300 text-white`} />
+                    <FaCloudUploadAlt className={`text-4xl transition-colors duration-300 text-white`} />
                 </div>
 
-                <h3 className={`text-lg font-bold mb-1 transition-colors duration-300 ${isDragging ? 'text-indigo-600' : 'text-neutral-800 group-hover:text-indigo-700'}`}>
-                    {isDragging ? 'Drop Files Now' : 'Click or Drag Images'}
+                <h3 className={`text-xl font-bold mb-2 transition-colors duration-300 ${isDragging ? 'text-indigo-600' : 'text-neutral-800 group-hover:text-indigo-700'}`}>
+                    {isDragging ? 'Drop PDFs Here' : 'Click or Drag PDF Files'}
                 </h3>
-                <p className="text-neutral-500 text-xs max-w-xs mx-auto mb-4 group-hover:text-neutral-600">
-                    Support for <span className="font-semibold text-indigo-500">JPG</span>, <span className="font-semibold text-purple-500">PNG</span>, <span className="font-semibold text-pink-500">WEBP</span>
+                <p className="text-neutral-500 text-sm max-w-sm mx-auto mb-6 group-hover:text-neutral-600">
+                    Upload multiple <span className="font-semibold text-rose-500">PDFs</span> to merge them into one document.
                 </p>
 
                 <div className={`
-                    flex items-center gap-1.5 text-[10px] font-bold px-3 py-1.5 rounded-full border transition-all duration-300
+                    flex items-center gap-2 text-xs font-bold px-4 py-2 rounded-full border transition-all duration-300
                     ${isDragging
                         ? 'bg-indigo-100 text-indigo-700 border-indigo-200'
                         : 'bg-neutral-50 text-neutral-500 border-neutral-200 group-hover:bg-indigo-50 group-hover:text-indigo-600 group-hover:border-indigo-100'}
                 `}>
-                    <FaImages className="text-xs" />
+                    <FaFilePdf className="text-sm text-rose-500" />
                     <span>Multiple files supported</span>
                 </div>
             </div>
@@ -97,4 +98,4 @@ const FileUpload: React.FC<FileUploadProps> = ({ onFilesSelected }) => {
     );
 };
 
-export default FileUpload;
+export default MergeFileUpload;

@@ -59,14 +59,14 @@ const App: React.FC = () => {
       <main className="pt-8 pb-8 sm:pt-16 sm:pb-12 md:pt-20 md:pb-16 relative z-10">
         {currentPage === "home" ? (
           <>
-            <Section className="!pt-8 !pb-10 sm:!pt-16 sm:!pb-16 text-center relative pointer-events-none">
-              <div className="pointer-events-auto relative z-10">
+            <Section className="-mt-6 !pt-0 !pb-2 sm:!pt-0 sm:!pb-4 text-center relative pointer-events-none">
+              <div className="pointer-events-auto relative z-0">
                 <div className="inline-flex items-center gap-2 mb-6 px-3 py-1.5 bg-white/60 backdrop-blur-md rounded-full shadow-sm border border-white/50 animate-fadeIn">
                   <span className="relative flex h-2 w-2">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500 "></span>
                   </span>
-                  <span className="text-[10px] sm:text-xs font-bold tracking-wide uppercase text-gray-600">
+                  <span className="text-[20px] sm:text-xs font-bold tracking-wide uppercase text-gray-600 ">
                     Free & Secure PDF Tools
                   </span>
                 </div>
@@ -78,7 +78,7 @@ const App: React.FC = () => {
                   </span>
                 </h1>
 
-                <p className="max-w-2xl mx-auto text-base sm:text-lg text-gray-600 leading-relaxed mb-10 px-4">
+                <p className="max-w-2xl mx-auto text-base sm:text-lg text-gray-600 leading-relaxed mb-4 px-4">
                   All the tools you need to manage your PDFs in one place.
                   Simple, fast, and completely free.
                 </p>
@@ -100,33 +100,27 @@ const App: React.FC = () => {
           <About onNavigateHome={() => setCurrentPage("home")} />
         ) : (
           <>
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 animate-fadeIn pt-8 border-b border-gray-100 pb-4">
-              <Button
-                variant="outline"
-                onClick={() => setCurrentPage("home")}
-                icon={
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                  </svg>
-                }
-              >
-                Back to Tools
-              </Button>
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 animate-fadeIn border-b border-gray-100 pb-4 -mt-12 ">
+              {currentPage !== "jpg-pdf" && currentPage !== "merge" && currentPage !== "compress" && (
+                <Button
+                  variant="outline"
+                  onClick={() => setCurrentPage("home")}
+                  icon={
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                    </svg>
+                  }
+                >
+                  Back to Tools
+                </Button>
+              )}
             </div>
 
             <div key={currentPage} className="animate-fade-in-up">
-              {currentPage === "jpg-pdf" && <JpgPdfPage />}
-              {currentPage === "merge" && <MergePdfPage />}
-              {currentPage === "compress" && (
-                <Container>
-                  <CompressPdfPage />
-                </Container>
-              )}
-              {currentPage === "split" && (
-                <Container>
-                  <SplitPdfPage />
-                </Container>
-              )}
+              {currentPage === "jpg-pdf" && <JpgPdfPage onBack={() => setCurrentPage("home")} />}
+              {currentPage === "merge" && <MergePdfPage onBack={() => setCurrentPage("home")} />}
+              {currentPage === "compress" && <CompressPdfPage onBack={() => setCurrentPage("home")} />}
+              {currentPage === "split" && <SplitPdfPage onBack={() => setCurrentPage("home")} />}
               {currentPage === "rotate" && <RotatePdfPage />}
               {currentPage === "html-pdf" && <HtmlToPdfPage />}
               {currentPage === "watermark" && <WatermarkPdfPage />}
