@@ -375,3 +375,23 @@ input[type="file"]:focus {
   backdrop-filter: blur(10px);
 }
 
+/* Dark mode overrides (minimal, complements Tailwind if not configured for class-based dark mode) */
+.dark .min-h-screen {
+  background-color: #0b1220 !important;
+  color: #e5e7eb !important;
+}
+.dark .bg-white {
+  background-color: #0f1724 !important;
+}
+.dark .text-gray-900,
+.dark .text-black {
+  color: #e5e7eb !important;
+}
+.dark .text-gray-600,
+.dark .text-yellow-400 {
+  color: #cbd5e1 !important;
+}
+.dark .bg-indigo-200\/20 {
+  background-color: rgba(99,102,241,0.06) !important;
+}
+

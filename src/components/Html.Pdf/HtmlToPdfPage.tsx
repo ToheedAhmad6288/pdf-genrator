@@ -1,12 +1,12 @@
 import React from "react";
-import { FaCode } from "react-icons/fa";
+import { FaCode, FaArrowLeft } from "react-icons/fa";
 import { FileUploadStyled, Heading } from "../UI";
 import HtmlPreview from "./components/preview";
 import HtmlDownloadButton from "./components/Button";
 
-interface HtmlToPdfPageProps { }
+interface HtmlToPdfPageProps { onBack?: () => void }
 
-const HtmlToPdfPage: React.FC<HtmlToPdfPageProps> = () => {
+const HtmlToPdfPage: React.FC<HtmlToPdfPageProps> = ({ onBack }) => {
     const [htmlContent, setHtmlContent] = React.useState<string>("");
 
     return (
@@ -17,6 +17,15 @@ const HtmlToPdfPage: React.FC<HtmlToPdfPageProps> = () => {
                     <div className="absolute bottom-[-8%] right-[-8%] w-[48%] h-[48%] bg-cyan-200/40 rounded-full blur-[80px] animate-pulse delay-700 mix-blend-multiply" />
                     <div className="absolute top-[40%] left-[40%] w-[38%] h-[38%] bg-teal-200/40 rounded-full blur-[100px] animate-pulse delay-1000 mix-blend-overlay" />
                 </div>
+
+                    <button
+                        onClick={() => onBack ? onBack() : (window.location.href = "/")}
+                        aria-label="Back to home"
+                        className="absolute top-6 left-6 z-20 flex items-center gap-2 px-3 py-2 bg-white/90 backdrop-blur rounded-md shadow hover:bg-white transition"
+                    >
+                        <FaArrowLeft className="text-neutral-700" />
+                        <span className="text-sm font-medium text-neutral-700">Home</span>
+                    </button>
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10 animate-fade-in-up">
                 <div className="text-center mb-12">

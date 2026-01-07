@@ -56,10 +56,10 @@ const App: React.FC = () => {
 
       <Navbar onNavigate={(page) => setCurrentPage(page as any)} />
 
-      <main className="pt-8 pb-8 sm:pt-16 sm:pb-12 md:pt-20 md:pb-16 relative z-10">
+      <main className="pt-0 pb-8 sm:pt-0 sm:pb-12 md:pt-0 md:pb-16 relative z-10">
         {currentPage === "home" ? (
           <>
-            <Section className="-mt-6 !pt-0 !pb-2 sm:!pt-0 sm:!pb-4 text-center relative pointer-events-none">
+            <Section className="mt-6 !pt-0 !pb-2 sm:!pt-0 sm:!pb-4 text-center relative pointer-events-none">
               <div className="pointer-events-auto relative z-0">
                 <div className="inline-flex items-center gap-2 mb-6 px-3 py-1.5 bg-white/60 backdrop-blur-md rounded-full shadow-sm border border-white/50 animate-fadeIn">
                   <span className="relative flex h-2 w-2">
@@ -100,7 +100,7 @@ const App: React.FC = () => {
           <About onNavigateHome={() => setCurrentPage("home")} />
         ) : (
           <>
-            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 animate-fadeIn border-b border-gray-100 pb-4 -mt-12 ">
+            {/* {/* <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 animate-fadeIn border-b border-gray-100 pb-4 -mt-12 ">
               {currentPage !== "jpg-pdf" && currentPage !== "merge" && currentPage !== "compress" && currentPage !== "rotate" && (
                 <Button
                   variant="outline"
@@ -113,8 +113,8 @@ const App: React.FC = () => {
                 >
                   Back to Tools
                 </Button>
-              )}
-            </div>
+              )} 
+            </div> */}
 
             <div key={currentPage} className="animate-fade-in-up">
               {currentPage === "jpg-pdf" && <JpgPdfPage onBack={() => setCurrentPage("home")} />}
@@ -122,11 +122,11 @@ const App: React.FC = () => {
               {currentPage === "compress" && <CompressPdfPage onBack={() => setCurrentPage("home")} />}
               {currentPage === "split" && <SplitPdfPage onBack={() => setCurrentPage("home")} />}
               {currentPage === "rotate" && <RotatePdfPage onBack={() => setCurrentPage("home")} />}
-              {currentPage === "html-pdf" && <HtmlToPdfPage />}
-              {currentPage === "watermark" && <WatermarkPdfPage />}
-              {currentPage === "page-numbers" && <PageNumbersPage />}
-              {currentPage === "compare" && <ComparePdfsPage />}
-              {currentPage === "extract-text" && <ExtractTextPage />}
+              {currentPage === "html-pdf" && <HtmlToPdfPage onBack={() => setCurrentPage("home")} />}
+              {currentPage === "watermark" && <WatermarkPdfPage onBack={() => setCurrentPage("home")} />}
+              {currentPage === "page-numbers" && <PageNumbersPage onBack={() => setCurrentPage("home")} />}
+              {currentPage === "compare" && <ComparePdfsPage onBack={() => setCurrentPage("home")} />}
+              {currentPage === "extract-text" && <ExtractTextPage  onBack={() => setCurrentPage("home")}/>}
             </div>
           </>
         )}

@@ -1,12 +1,14 @@
 import React from "react";
 import * as pdfjsLib from "pdfjs-dist";
-import { FaExchangeAlt } from "react-icons/fa";
+import { FaExchangeAlt, FaArrowLeft } from "react-icons/fa";
 import { Button, FileUploadStyled } from "../UI";
 import Comparison from "./components/Comparison";
 
-interface ComparePdfsPageProps { }
+interface ComparePdfsPageProps {
+    onBack?: () => void;
+}
 
-const ComparePdfsPage: React.FC<ComparePdfsPageProps> = () => {
+const ComparePdfsPage: React.FC<ComparePdfsPageProps> = ({ onBack }) => {
     const [oldPdf, setOldPdf] = React.useState<File | null>(null);
     const [newPdf, setNewPdf] = React.useState<File | null>(null);
     const [oldText, setOldText] = React.useState("");
@@ -60,6 +62,18 @@ const ComparePdfsPage: React.FC<ComparePdfsPageProps> = () => {
                     </div>
                     <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-[0.04] mix-blend-overlay" />
                 </div>
+
+                <button
+                    onClick={() => {
+                        if (onBack) onBack();
+                        else window.location.href = "/";
+                    }}
+                    aria-label="Go home"
+                    className="absolute top-6 left-6 z-50 inline-flex items-center gap-2 px-3 py-2 rounded-md bg-white/95 text-neutral-800 shadow-md hover:bg-white transition-colors"
+                >
+                    <FaArrowLeft className="text-xl" />
+                    <span className="inline-block font-medium">Home</span>
+                </button>
 
                 <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 animate-fade-in-up">
                 <div className="text-center mb-12">

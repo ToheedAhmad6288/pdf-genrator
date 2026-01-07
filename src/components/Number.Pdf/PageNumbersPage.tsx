@@ -1,13 +1,15 @@
 import React from "react";
-import { FaListOl } from "react-icons/fa";
+import { FaListOl, FaArrowLeft } from "react-icons/fa";
 
 import FileUpload from "./components/file";
 import PageNumberSettings from "./components/number";
 import AddPageNumbersButton from "./components/btn";
 
-interface PageNumbersPageProps { }
+interface PageNumbersPageProps {
+    onBack?: () => void;
+}
 
-const PageNumbersPage: React.FC<PageNumbersPageProps> = () => {
+const PageNumbersPage: React.FC<PageNumbersPageProps> = ({ onBack }) => {
     const [pdfFile, setPdfFile] = React.useState<File | null>(null);
     const [position, setPosition] = React.useState<string>("bottom-right");
     const [fontSize, setFontSize] = React.useState<number>(12);
@@ -25,6 +27,19 @@ const PageNumbersPage: React.FC<PageNumbersPageProps> = () => {
                 </div>
                 <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-[0.04] mix-blend-overlay" />
             </div>
+
+            {/* Top-left Back Button */}
+            <button
+                onClick={() => {
+                    if (onBack) onBack();
+                    else window.location.href = "/";
+                }}
+                aria-label="Go home"
+                className="absolute top-6 left-6 z-50 inline-flex items-center gap-2 px-3 py-2 rounded-md bg-white/95 text-neutral-800 shadow-md hover:bg-white transition-colors"
+            >
+                <FaArrowLeft className="text-xl" />
+                <span className="inline-block font-medium">Home</span>
+            </button>
 
             <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 animate-fade-in-up">
                 <div className="text-center mb-12">

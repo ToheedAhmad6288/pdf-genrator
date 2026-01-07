@@ -1,12 +1,14 @@
 import React from "react";
-import { FaFileImage } from "react-icons/fa";
+import { FaFileImage, FaArrowLeft } from "react-icons/fa";
 
 import TextFileUpload from "./components/FileUpload";
 import TextExtractor from "./components/TextExtractor";
 
-interface ExtractTextPageProps { }
+interface ExtractTextPageProps { 
+    onBack?: () => void;
+}
 
-const ExtractTextPage: React.FC<ExtractTextPageProps> = () => {
+const ExtractTextPage: React.FC<ExtractTextPageProps> = ({ onBack }) => {
     const [extractFile, setExtractFile] = React.useState<File | null>(null);
 
     return (
@@ -19,6 +21,18 @@ const ExtractTextPage: React.FC<ExtractTextPageProps> = () => {
                 </div>
                 <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-[0.04] mix-blend-overlay" />
             </div>
+
+            <button
+                onClick={() => {
+                    if (onBack) onBack();
+                    else window.location.href = "/";
+                }}
+                aria-label="Go home"
+                className="absolute top-6 left-6 z-50 inline-flex items-center gap-2 px-3 py-2 rounded-md bg-white/95 text-neutral-800 shadow-md hover:bg-white transition-colors"
+            >
+                <FaArrowLeft className="text-xl" />
+                <span className="inline-block font-medium">Home</span>
+            </button>
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10 animate-fade-in-up">
                 <div className="text-center mb-12">
